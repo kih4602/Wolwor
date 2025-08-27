@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SafeAIon – Contractor Safety Management</title>
+  <style>
+    :root{
+      --bg:#0f172a; --bg2:#0b1220; --card:rgba(17,24,39,.6);
+      --text:#e5e7eb; --sub:#9ca3af; --brand:#22d3ee;
+      --line:#233044; --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
+      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, #13233e 0%, transparent 60%),
+                  radial-gradient(1200px 800px at 110% 10%, #0a1b2f 0%, transparent 60%),
+                  linear-gradient(120deg,var(--bg),var(--bg2));
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      line-height:1.45;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{position:sticky;top:0;z-index:20;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(180deg, rgba(15,23,42,.85), rgba(15,23,42,.55));
+      border-bottom:1px solid var(--line);}
+    .head-wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;}
+    .logo-btn{font-size:20px;font-weight:800;color:#fff;background:transparent;border:0;cursor:pointer;}
+    .logo-btn:hover{color:var(--brand)}
+    .right-actions{display:flex;align-items:center;gap:12px;}
+    #rawDataLink{padding:8px 12px;border-radius:10px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:#cfe9ff;}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;padding:12px 20px 18px;
+      border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(17,24,39,.6), rgba(17,24,39,.35));
+      backdrop-filter:blur(8px);}
+    .control-group{display:flex;align-items:center;gap:10px;
+      padding:10px 12px;border:1px solid var(--line);background:var(--card);
+      backdrop-filter:blur(6px);border-radius:var(--radius);box-shadow:var(--shadow);}
+    select,input[type="checkbox"]{accent-color:var(--brand)}
+    select{appearance:none;padding:10px 36px 10px 12px;border-radius:12px;
+      border:1px solid #2a3a54;background:#0e2037;color:var(--text);
+      background-image:linear-gradient(45deg, transparent 50%, var(--brand) 50%),
+                       linear-gradient(135deg, var(--brand) 50%, transparent 50%),
+                       linear-gradient(to right, #0e2037, #0e2037);
+      background-position: calc(100% - 20px) calc(1em + 2px),
+                          calc(100% - 15px) calc(1em + 2px),100% 0;
+      background-size:5px 5px,5px 5px,2.5em 2.5em;background-repeat:no-repeat;min-width:220px;}
+    .hidden{display:none !important}
+    main{padding:18px 20px 80px;max-width:1200px;margin:0 auto}
+    .home-grid{display:grid;gap:14px;grid-template-columns:1fr;}
+    @media (min-width:700px){.home-grid{grid-template-columns:1fr 1fr}}
+    .card{position:relative;padding:18px;border-radius:20px;border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.55));
+      backdrop-filter:blur(8px);box-shadow:var(--shadow);min-height:110px;}
+    .card h3{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:10px}
+
+    /* Ad banner -> full image */
+    .ad-banner{
+      position:fixed; left:0; right:0; bottom:0; z-index:15;
+      height:140px; /* 필요시 높이 조절 */
+      border-top:1px solid var(--line);
+      background:#000; box-shadow:0 -10px 30px rgba(0,0,0,.35);
+    }
+    .ad-banner img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+
+    .tabs-wrap{margin-top:4px}
+    #tabs{display:flex;gap:8px;flex-wrap:wrap;padding:6px;
+      border:1px solid var(--line);border-radius:16px;
+      background:linear-gradient(180deg, rgba(17,24,39,.6), rgba(17,24,39,.35));
+      backdrop-filter:blur(8px);}
+    .tab{appearance:none;border:1px solid #2a3a54;background:#0e2037;color:#cde7ff;
+      padding:8px 12px;border-radius:12px;cursor:pointer;font-size:14px;}
+    .tab[aria-selected="true"]{border-color:var(--brand);color:#001018;
+      background:linear-gradient(180deg,#61efff,#20d3f0);}
+    .panels{margin-top:14px}
+    .panel{display:none;padding:18px;border-radius:20px;border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.55));
+      backdrop-filter:blur(8px);box-shadow:var(--shadow);min-height:160px;}
+    .panel.active{display:block}
+    footer{border-top:1px solid var(--line);background:rgba(0,0,0,.2);
+      padding:14px 20px;margin-top:32px;color:var(--sub);}
+
+    /* Temp table */
+    .temp-table{width:100%; border-collapse:collapse; font-size:13px}
+    .temp-table th,.temp-table td{border:1px solid #2a3a54; padding:6px 8px; text-align:center}
+    .temp-table th{background:#0e2037; color:#cde7ff}
+    .apparent-warn{color:var(--warn); font-weight:700}
+    .apparent-bad{color:var(--bad); font-weight:700}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="head-wrap">
+      <button class="logo-btn" id="homeBtn">SafeAIon</button>
+      <div class="right-actions"><a id="rawDataLink" href="#" target="_blank">원본 데이터 바로가기</a></div>
+    </div>
+    <div class="controls">
+      <div id="companyGroup" class="control-group">
+        <label for="companySelect">업체 선택</label>
+        <select id="companySelect"><option value="">업체를 선택하세요</option></select>
+      </div>
+      <div id="urgentGroup" class="control-group">
+        <label for="urgentPermit">긴급작업허가</label>
+        <input type="checkbox" id="urgentPermit" />
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HOME -->
+    <section id="home">
+      <div class="home-grid">
+        <article class="card">
+          <h3>비상대피로</h3>
+          <img
+            src="https://raw.githubusercontent.com/kih4602/picture/main/%EB%B9%84%EC%83%81%EB%8C%80%ED%94%BC%EB%A1%9C.JPG"
+            alt="비상대피로 안내 이미지"
+            style="max-width:100%; height:auto"
+          />
+        </article>
+
+        <article class="card">
+          <h3>금일 체감온도</h3>
+          <div id="tempTableBox">로딩 중…</div>
+          <p id="heatAdvice" style="margin:6px 0 0; color:var(--sub); font-size:13px;">
+            <span id="rule31">체감온도 31도 이상은 <b>폭염작업 준수</b></span>,
+            <span id="rule33">33도 이상은 <b>2시간마다 20분씩 휴식 실시</b></span>
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>공지사항</h3>
+          <p id="homeNoticeText">최신 공지를 불러오는 중…</p>
+        </article>
+
+        <article class="card">
+          <h3>MSDS 페이지</h3>
+          <p>
+            <a href="https://kih4602.github.io/GSC_IT_MSDS/" target="_blank" rel="noopener">
+              인천물류센터 MSDS 전체 보기
+            </a>
+          </p>
+        </article>
+      </div>
+
+      <!-- FULL image banner -->
+      <aside id="adBanner" class="ad-banner" aria-label="회사 광고 배너">
+        <img
+          src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%97%90%EB%84%88%EC%A7%80%ED%94%8C%EB%9F%AC%EC%8A%A4%EB%A1%9C%EA%B3%A0.png"
+          alt="에너지플러스 로고"
+        />
+      </aside>
+    </section>
+
+    <!-- TABS -->
+    <section id="tabsSection" class="tabs-wrap hidden">
+      <div id="tabs"></div>
+      <div id="panels" class="panels">
+        <!-- 일반 -->
+        <section id="tab-notice" class="panel">
+          <h2>공지사항</h2>
+          <div id="companyNoticeBox">
+            <p>업체를 선택하면 해당 업체의 최신 공지 1건을 표시합니다.</p>
+          </div>
+          <small>
+            원본 API:
+            <a href="https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/업체별공지"
+               target="_blank" rel="noopener">업체별공지 (Sheety)</a>
+          </small>
+        </section>
+        <section id="tab-register" class="panel"><h2>공사등록</h2></section>
+        <section id="tab-plan" class="panel"><h2>계획서작성</h2></section>
+        <section id="tab-jha" class="panel"><h2>작업위험성평가</h2></section>
+        <section id="tab-access" class="panel">
+          <h2>출입 및 교육관리</h2>
+          <img
+            src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%B6%9C%EC%9E%85%EC%9E%90_%EA%B3%A7.JPG"
+            alt="출입자 시스템 안내 이미지(곧)"
+            style="max-width:100%; height:auto"
+          />
+          <p>(현재 52g, GS칼텍스 DX센터 협업 구축중 / 곧 출입자 시스템 연동 예정)</p>
+        </section>
+        <section id="tab-tbm" class="panel"><h2>TBM</h2></section>
+        <section id="tab-observe" class="panel"><h2>안전관찰</h2></section>
+        <section id="tab-pssr" class="panel"><h2>가동전점검</h2></section>
+        <!-- 상주 -->
+        <section id="tab-res-training" class="panel"><h2>안전보건교육</h2></section>
+        <section id="tab-res-joint" class="panel"><h2>합동안전점검</h2></section>
+        <section id="tab-res-patrol" class="panel"><h2>작업장순회점검</h2></section>
+        <section id="tab-res-observe" class="panel"><h2>안전관찰</h2></section>
+        <!-- 긴급 -->
+        <section id="tab-urgent-notice" class="panel"><h2>공지사항</h2></section>
+        <section id="tab-urgent-company" class="panel"><h2>업체정보입력</h2></section>
+        <section id="tab-urgent-plan" class="panel"><h2>시공계획</h2></section>
+        <section id="tab-urgent-hazards" class="panel"><h2>위험요소 및 경감대책</h2></section>
+      </div>
+    </section>
+  </main>
+
+  <footer>© The WolWor’s (월월이들) — SafeAIon</footer>
+
+  <script>
+    /* ====== 설정/엔드포인트 ====== */
+    const ENDPOINTS = {
+      companies:   "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/해커톤SafeAion/업체명",
+      noticesByCo: "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/업체별공지",
+      noticesHome: "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/공지사항",
+      apparent:    "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/체감온도"
+    };
+
+    const TAB_SETS={
+      general:[
+        {id:'tab-notice',label:'공지사항'},{id:'tab-register',label:'공사등록'},
+        {id:'tab-plan',label:'계획서작성'},{id:'tab-jha',label:'작업위험성평가'},
+        {id:'tab-access',label:'출입 및 교육관리'},{id:'tab-tbm',label:'TBM'},
+        {id:'tab-observe',label:'안전관찰'},{id:'tab-pssr',label:'가동전점검'}
+      ],
+      resident:[
+        {id:'tab-res-training',label:'안전보건교육'},{id:'tab-res-joint',label:'합동안전점검'},
+        {id:'tab-res-patrol',label:'작업장순회점검'},{id:'tab-res-observe',label:'안전관찰'}
+      ],
+      urgent:[
+        {id:'tab-urgent-notice',label:'공지사항'},{id:'tab-urgent-company',label:'업체정보입력'},
+        {id:'tab-urgent-plan',label:'시공계획'},{id:'tab-urgent-hazards',label:'위험요소 및 경감대책'}
+      ]
+    };
+
+    /* ====== 엘리먼트 ====== */
+    const homeBtn=document.getElementById('homeBtn');
+    const companySelect=document.getElementById('companySelect');
+    const urgentPermit=document.getElementById('urgentPermit');
+    const companyGroup=document.getElementById('companyGroup');
+    const urgentGroup=document.getElementById('urgentGroup');
+    const homeSection=document.getElementById('home');
+    const adBanner=document.getElementById('adBanner');
+    const tabsSection=document.getElementById('tabsSection');
+    const tabsEl=document.getElementById('tabs');
+    const panelsEl=document.getElementById('panels');
+    const homeNoticeText=document.getElementById('homeNoticeText');
+    const tempTableBox=document.getElementById('tempTableBox');
+    const rule31El=document.getElementById('rule31');
+    const rule33El=document.getElementById('rule33');
+    const companyNoticeBox=document.getElementById('companyNoticeBox');
+    const urgentNoticePanel=document.getElementById('tab-urgent-notice');
+
+    /* ====== 상태 ====== */
+    let companies = [];           // [{id, name, isResident}]
+    let selectedCompany=null;     // {id, name, isResident}
+
+    window.addEventListener('DOMContentLoaded',init);
+
+    async function init(){
+      attachEvents();
+      await loadCompaniesFromSheet();      // 업체 드롭다운
+      await Promise.all([
+        loadHomeNoticeLatest(),            // 메인 공지
+        loadApparentTemperature()          // 체감온도(목록)
+      ]);
+      setMode('home');
+    }
+
+    function attachEvents(){
+      homeBtn.addEventListener('click',()=>{
+        companySelect.value='';selectedCompany=null;urgentPermit.checked=false;
+        showUrgentControl(true);setMode('home');companyGroup.classList.remove('hidden');
+      });
+      companySelect.addEventListener('change',onCompanyChange);
+      urgentPermit.addEventListener('change',onUrgentToggle);
+    }
+
+    /* ====== 모드/탭 전환 ====== */
+    function setMode(mode){
+      const isHome=(mode==='home');
+      homeSection.classList.toggle('hidden',!isHome);
+      tabsSection.classList.toggle('hidden',isHome);
+      adBanner.classList.toggle('hidden',!isHome);
+      if(!isHome) buildTabs(mode); else clearTabs();
+    }
+    function buildTabs(mode){
+      const set=TAB_SETS[mode]||[];tabsEl.innerHTML='';
+      panelsEl.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      set.forEach(tabObj=>{
+        const btn=document.createElement('button');
+        btn.className='tab';
+        btn.setAttribute('aria-controls',tabObj.id);
+        btn.setAttribute('aria-selected','false');
+        btn.textContent=tabObj.label;
+        btn.addEventListener('click',()=>activateTab(tabObj.id));
+        tabsEl.appendChild(btn);
+        const panel=document.getElementById(tabObj.id);
+        if(panel)panel.setAttribute('aria-labelledby',btn.id);
+      });
+      if(set[0]) activateTab(set[0].id);
+    }
+    function clearTabs(){tabsEl.innerHTML='';}
+    function activateTab(panelId){
+      tabsEl.querySelectorAll('.tab').forEach(t=>{
+        const isActive=(t.getAttribute('aria-controls')===panelId);
+        t.setAttribute('aria-selected',String(isActive));
+        t.tabIndex=isActive?0:-1;
+      });
+      panelsEl.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===panelId));
+    }
+
+    /* ====== 업체 선택/긴급 토글 ====== */
+    function onCompanyChange(){
+      const value=companySelect.value; // option value = company.id
+      if(!value){
+        selectedCompany=null;
+        if(!urgentPermit.checked) setMode('home');
+        showUrgentControl(true);
+        companyNoticeBox.innerHTML='<p>업체를 선택하면 해당 업체의 최신 공지 1건을 표시합니다.</p>';
+        return;
+      }
+      selectedCompany = companies.find(c=>String(c.id)===String(value)) || null;
+
+      if(selectedCompany?.isResident){
+        urgentPermit.checked = false;
+        showUrgentControl(false);  // 상주 선택 시 긴급 숨김
+        setMode('resident');
+      }else{
+        showUrgentControl(true);
+        setMode('general');
+      }
+
+      if(selectedCompany?.name){
+        loadLatestCompanyNotice(selectedCompany.name)
+          .catch(err=>{
+            console.error(err);
+            companyNoticeBox.innerHTML='<p>공지 불러오기 실패</p>';
+          });
+      }
+    }
+
+    function onUrgentToggle(e){
+      if(e.target.checked){
+        setMode('urgent');
+        companyGroup.classList.add('hidden'); // 긴급 ON -> 업체선택 숨김
+        // 3) 긴급 공지 문구 표시
+        urgentNoticePanel.innerHTML = `
+          <h2>공지사항</h2>
+          <p>업체정보입력 &gt; 시공계획 &gt; 위험요소 및 경감대책 순서로 업로드 하고, 담당 PM에게 연락 바랍니다.</p>
+        `;
+      }else{
+        companyGroup.classList.remove('hidden');
+        if(selectedCompany){
+          setMode(selectedCompany.isResident ? 'resident' : 'general');
+        }else{
+          setMode('home');
+        }
+      }
+    }
+    function showUrgentControl(show){urgentGroup.classList.toggle('hidden',!show);}
+
+    /* ====== 회사 목록 로드 ====== */
+    async function loadCompaniesFromSheet(){
+      try{
+        const res = await fetch(ENDPOINTS.companies);
+        if(!res.ok) throw new Error('업체 목록 API 호출 실패');
+        const json = await res.json();
+
+        const arrKey = Object.keys(json).find(k=>Array.isArray(json[k]));
+        const rows = arrKey ? json[arrKey] : [];
+        companies = rows.map((r, i) => {
+          const name = r['업체명'] ?? r['회사명'] ?? r['name'] ?? r['Name'];
+          const typeRaw = (r['구분'] ?? r['type'] ?? r['Type'] ?? '').toString().trim();
+          return {
+            id: r['id'] ?? `row-${i}`,
+            name: name ? String(name).trim() : '',
+            isResident: typeRaw === '상주협력업체'
+          };
+        }).filter(c => c.name);
+
+        populateCompanySelect(companies);
+      }catch(err){
+        console.error(err);
+        companies = [];
+        populateCompanySelect(companies);
+      }
+    }
+
+    function populateCompanySelect(list){
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = '업체를 선택하세요';
+
+      companySelect.innerHTML = '';
+      companySelect.appendChild(placeholder);
+
+      list.forEach(c=>{
+        const opt=document.createElement('option');
+        opt.value = c.id; // 내부적으로 id로 식별
+        opt.textContent = c.name + (c.isResident ? ' (상주)' : '');
+        companySelect.appendChild(opt);
+      });
+    }
+
+    /* ====== 공지(메인) 로딩 ====== */
+    async function loadHomeNoticeLatest(){
+      try{
+        const res = await fetch(ENDPOINTS.noticesHome);
+        if(!res.ok) throw new Error('메인 공지 API 실패');
+        const json = await res.json();
+        const arrKey = Object.keys(json).find(k=>Array.isArray(json[k]));
+        const rows = arrKey ? json[arrKey] : [];
+        if(!rows.length){ homeNoticeText.textContent='공지 없음'; return; }
+
+        rows.sort((a,b)=>{
+          const da = parseKDotDate(getDateField(a));
+          const db = parseKDotDate(getDateField(b));
+          if(da && db) return db - da;
+          if(db) return 1;
+          if(da) return -1;
+          return 0;
+        });
+
+        const latest = rows[0];
+        const bVal = getPreferred(latest, ['제목','title','공지']) ?? getNthNonMeta(latest, 0);
+        const cVal = getPreferred(latest, ['내용','content','본문']) ?? getNthNonMeta(latest, 1);
+        const dStr = formatKDotDate(parseKDotDate(getDateField(latest)));
+
+        homeNoticeText.innerHTML =
+          `${bVal ? `<strong>${escapeHtml(String(bVal))}</strong>` : ''}` +
+          `${cVal ? `<br>${escapeHtml(String(cVal))}` : ''}` +
+          `${dStr ? `<br><small style="color:#9ca3af">${dStr}</small>` : ''}`;
+      }catch(e){
+        console.error(e);
+        homeNoticeText.textContent='공지 불러오기 실패';
+      }
+    }
+
+    /* ====== 공지(업체별) 로딩 ====== */
+    async function loadLatestCompanyNotice(companyName){
+      const res = await fetch(ENDPOINTS.noticesByCo);
+      if (!res.ok) throw new Error('공지 API 호출 실패');
+      const data = await res.json();
+
+      const arrKey = Object.keys(data).find(k => Array.isArray(data[k]));
+      const rows = arrKey ? data[arrKey] : [];
+
+      if (!rows.length) {
+        companyNoticeBox.innerHTML = '<p>공지 없음</p>';
+        return;
+      }
+
+      const matched = rows.filter(row => String(row['업체명'] || '').trim() === String(companyName).trim());
+      if (!matched.length) {
+        companyNoticeBox.innerHTML = '<p>해당 업체 공지가 없습니다.</p>';
+        return;
+      }
+
+      matched.sort((a, b) => {
+        const da = parseKDotDate(getDateField(a));
+        const db = parseKDotDate(getDateField(b));
+        if(da && db) return db - da;
+        if(db) return 1;
+        if(da) return -1;
+        return 0;
+      });
+      const latest = matched[0];
+
+      const title = getPreferred(latest,['제목','title','공지']) || '(제목 없음)';
+      const content = getPreferred(latest,['내용','content','본문']) || '';
+      const d = parseKDotDate(getDateField(latest));
+      const dateStr = d ? formatKDotDate(d) : '';
+
+      const linkHtml = `<a href="${ENDPOINTS.noticesByCo}" target="_blank" rel="noopener">원본(JSON) 보기</a>`;
+      companyNoticeBox.innerHTML = `
+        <article>
+          <h3 style="margin:0 0 6px">${escapeHtml(title)}</h3>
+          ${dateStr ? `<small style="color:#9ca3af">날짜: ${dateStr}</small>` : ''}
+          ${content ? `<p style="margin:8px 0 0;color:#cbd5e1">${escapeHtml(content)}</p>` : ''}
+          <div style="margin-top:8px">${linkHtml}</div>
+        </article>
+      `;
+    }
+
+    /* ====== 체감온도(오늘 전시간) 로딩 ======
+       - 오늘 날짜(A열:"YYYY. M. D") 필터
+       - B열 시간 오름차순
+       - C/D/E: 온도/습도/체감온도 전부 표시
+       - 31℃+ 주황, 33℃+ 빨강
+    */
+    async function loadApparentTemperature(){
+      try{
+        const res = await fetch(ENDPOINTS.apparent);
+        if(!res.ok) throw new Error('체감온도 API 실패');
+        const json = await res.json();
+        const arrKey = Object.keys(json).find(k=>Array.isArray(json[k]));
+        const rows = arrKey ? json[arrKey] : [];
+        if(!rows.length){ tempTableBox.textContent='데이터 없음'; return; }
+
+        // 오늘 날짜 문자열 (KST 기준 "YYYY. M. D")
+        const todayStr = todayKDotString();
+
+        // 날짜 키 감지
+        const dateKey = detectKey(rows[0], ['날짜','일자','작성일','date','Date','작성일자']);
+        const timeKey = detectKey(rows[0], ['시간','time','Time']);
+        const tempKey = detectKey(rows[0], ['온도','temperature','temp','Temp']);
+        const humiKey = detectKey(rows[0], ['습도','humidity','Humi','hum']);
+        const appKey  = detectKey(rows[0], ['체감온도','apparent','heatIndex','HI']);
+
+        const todayRows = rows.filter(r=>{
+          const d = r[dateKey];
+          return d && equalKDotDate(d, todayStr);
+        });
+
+        if(!todayRows.length){ tempTableBox.textContent='금일 데이터 없음'; return; }
+
+        todayRows.sort((a,b)=>{
+          const ta = parseTimeToMinutes(a[timeKey]);
+          const tb = parseTimeToMinutes(b[timeKey]);
+          return ta - tb;
+        });
+
+        // 테이블 렌더
+        const table = document.createElement('table');
+        table.className='temp-table';
+        table.innerHTML = `
+          <thead>
+            <tr><th>시간</th><th>온도(℃)</th><th>습도(%)</th><th>체감온도(℃)</th></tr>
+          </thead>
+          <tbody></tbody>
+        `;
+        const tbody = table.querySelector('tbody');
+
+        todayRows.forEach(r=>{
+          const t  = safeNum(r[tempKey]);
+          const h  = safeNum(r[humiKey]);
+          const ap = safeNum(r[appKey]);
+          const tr = document.createElement('tr');
+
+          const apClass = (ap!==null && ap>=33) ? 'apparent-bad'
+                         : (ap!==null && ap>=31) ? 'apparent-warn' : '';
+
+          tr.innerHTML = `
+            <td>${escapeHtml(String(r[timeKey] ?? ''))}</td>
+            <td>${t!==null ? t : ''}</td>
+            <td>${h!==null ? h : ''}</td>
+            <td class="${apClass}">${ap!==null ? ap : ''}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        tempTableBox.innerHTML='';
+        tempTableBox.appendChild(table);
+
+        // 하단 안내 강조(최대값 기준)
+        const maxAp = todayRows.reduce((m,r)=>{
+          const v = safeNum(r[appKey]); return v!==null ? Math.max(m,v) : m;
+        }, -Infinity);
+        rule31El.style.color = (maxAp>=31) ? 'var(--warn)' : 'var(--sub)';
+        rule33El.style.color = (maxAp>=33) ? 'var(--bad)'  : 'var(--sub)';
+
+      }catch(e){
+        console.error(e);
+        tempTableBox.textContent='체감온도 불러오기 실패';
+      }
+    }
+
+    /* ====== 공통 유틸 ====== */
+    function detectKey(obj, candidates){
+      for(const k of candidates){ if(k in obj) return k; }
+      return candidates[0]; // fallback
+    }
+    function safeNum(v){
+      if(v==null) return null;
+      const n = parseFloat(String(v).replace(/[^\d.]/g,''));
+      return isFinite(n) ? Math.round(n) : null;
+    }
+    function parseTimeToMinutes(s){
+      if(!s) return Number.MAX_SAFE_INTEGER;
+      const m = String(s).match(/(\d{1,2}):(\d{2})/);
+      if(!m) return Number.MAX_SAFE_INTEGER;
+      return (+m[1])*60 + (+m[2]);
+    }
+    function todayKDotString(){
+      // Asia/Seoul 기준 오늘
+      try{
+        const d = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
+        return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
+      }catch{
+        const d = new Date();
+        return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
+      }
+    }
+    function equalKDotDate(a, kdotStr){
+      const da = formatKDotDate(parseKDotDate(a));
+      return da === kdotStr;
+    }
+    function parseKDotDate(input){
+      if(!input) return null;
+      const m = String(input).match(/^\s*(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\s*$/);
+      if(m){
+        const y = +m[1], mon = +m[2], d = +m[3];
+        const dt = new Date(y, mon-1, d);
+        return isNaN(dt) ? null : dt;
+      }
+      const dt2 = new Date(input);
+      return isNaN(dt2) ? null : dt2;
+    }
+    function formatKDotDate(d){
+      if(!(d instanceof Date) || isNaN(d)) return '';
+      const y = d.getFullYear(), m = d.getMonth()+1, day = d.getDate();
+      return `${y}. ${m}. ${day}`;
+    }
+    function getDateField(row){
+      const keys = ['날짜','일자','작성일','date','Date','작성일자'];
+      for(const k of keys){ if(row[k]) return row[k]; }
+      return null;
+    }
+    function getPreferred(obj, prefList){
+      for(const k of prefList){ if(k in obj && obj[k]!=null && obj[k]!== '') return obj[k]; }
+      return null;
+    }
+    function getNthNonMeta(obj, n){
+      const dateKey = Object.keys(obj).find(k=>/날짜|date/i.test(k));
+      const keys = Object.keys(obj).filter(k=>k!=='id' && k!==dateKey);
+      return obj[keys[n]] ?? null;
+    }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
+  </script>
+</body>
+</html>
