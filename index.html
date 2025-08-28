@@ -23,82 +23,103 @@
     }
     a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
-    header{position:sticky;top:0;z-index:20;
+
+    header{
+      position:sticky;top:0;z-index:20;
       backdrop-filter:saturate(140%) blur(10px);
       background:linear-gradient(180deg, rgba(15,23,42,.85), rgba(15,23,42,.55));
-      border-bottom:1px solid var(--line);}
-    .head-wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;}
-    .logo-btn{font-size:20px;font-weight:800;color:#fff;background:transparent;border:0;cursor:pointer;}
+      border-bottom:1px solid var(--line)
+    }
+    .head-wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px}
+    .logo-btn{font-size:20px;font-weight:800;letter-spacing:.3px;color:#fff;background:transparent;border:0;cursor:pointer}
     .logo-btn:hover{color:var(--brand)}
-    .right-actions{display:flex;align-items:center;gap:12px;}
-    #rawDataLink{padding:8px 12px;border-radius:10px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);color:#cfe9ff;}
-    .controls{display:flex;gap:12px;flex-wrap:wrap;padding:12px 20px 18px;
+    .right-actions{display:flex;align-items:center;gap:12px}
+    #rawDataLink{
+      padding:8px 12px;border-radius:10px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:#cfe9ff
+    }
+
+    .controls{
+      display:flex;gap:12px;flex-wrap:wrap;padding:12px 20px 18px;
       border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid var(--line);
       background:linear-gradient(180deg, rgba(17,24,39,.6), rgba(17,24,39,.35));
-      backdrop-filter:blur(8px);}
-    .control-group{display:flex;align-items:center;gap:10px;
-      padding:10px 12px;border:1px solid var(--line);background:var(--card);
-      backdrop-filter:blur(6px);border-radius:var(--radius);box-shadow:var(--shadow);}
+      backdrop-filter:blur(8px)
+    }
+    .control-group{
+      display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);
+      background:var(--card);backdrop-filter:blur(6px);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
     select,input[type="checkbox"]{accent-color:var(--brand)}
-    select{appearance:none;padding:10px 36px 10px 12px;border-radius:12px;
+    select{
+      appearance:none;padding:10px 36px 10px 12px;border-radius:12px;
       border:1px solid #2a3a54;background:#0e2037;color:var(--text);
       background-image:linear-gradient(45deg, transparent 50%, var(--brand) 50%),
                        linear-gradient(135deg, var(--brand) 50%, transparent 50%),
                        linear-gradient(to right, #0e2037, #0e2037);
       background-position: calc(100% - 20px) calc(1em + 2px),
                           calc(100% - 15px) calc(1em + 2px),100% 0;
-      background-size:5px 5px,5px 5px,2.5em 2.5em;background-repeat:no-repeat;min-width:220px;}
+      background-size:5px 5px,5px 5px,2.5em 2.5em;background-repeat:no-repeat;min-width:220px
+    }
     .hidden{display:none !important}
+
     main{padding:18px 20px 80px;max-width:1200px;margin:0 auto}
-    .home-grid{display:grid;gap:14px;grid-template-columns:1fr;}
+
+    .home-grid{display:grid;gap:14px;grid-template-columns:1fr}
     @media (min-width:700px){.home-grid{grid-template-columns:1fr 1fr}}
-    .card{position:relative;padding:18px;border-radius:20px;border:1px solid var(--line);
+    .card{
+      position:relative;padding:18px;border-radius:20px;border:1px solid var(--line);
       background:linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.55));
-      backdrop-filter:blur(8px);box-shadow:var(--shadow);min-height:110px;}
+      backdrop-filter:blur(8px);box-shadow:var(--shadow);min-height:110px
+    }
     .card h3{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:10px}
 
-    /* Ad banner -> full image */
+    /* 작은 로고 + 흰 배경 배너 */
     .ad-banner{
-      position:fixed; left:0; right:0; bottom:0; z-index:15;
-      height:140px; /* 필요시 높이 조절 */
-      border-top:1px solid var(--line);
-      background:#000; box-shadow:0 -10px 30px rgba(0,0,0,.35);
+      position:fixed;left:0;right:0;bottom:0;z-index:15;height:50px;
+      border-top:1px solid var(--line);background:#fff;
+      display:flex;align-items:center;gap:12px;justify-content:center;padding:6px 10px
     }
-    .ad-banner img{
-      width:100%; height:100%; object-fit:cover; display:block;
-    }
+    .ad-banner img{height:128px;width:auto;display:block}
+    .ad-banner .ad-text{color:#111827;font-size:13px}
 
     .tabs-wrap{margin-top:4px}
-    #tabs{display:flex;gap:8px;flex-wrap:wrap;padding:6px;
-      border:1px solid var(--line);border-radius:16px;
-      background:linear-gradient(180deg, rgba(17,24,39,.6), rgba(17,24,39,.35));
-      backdrop-filter:blur(8px);}
+    #tabs{
+      display:flex;gap:8px;flex-wrap:wrap;padding:6px;border:1px solid var(--line);border-radius:16px;
+      background:linear-gradient(180deg, rgba(17,24,39,.6), rgba(17,24,39,.35));backdrop-filter:blur(8px)
+    }
     .tab{appearance:none;border:1px solid #2a3a54;background:#0e2037;color:#cde7ff;
-      padding:8px 12px;border-radius:12px;cursor:pointer;font-size:14px;}
-    .tab[aria-selected="true"]{border-color:var(--brand);color:#001018;
-      background:linear-gradient(180deg,#61efff,#20d3f0);}
-    .panels{margin-top:14px}
-    .panel{display:none;padding:18px;border-radius:20px;border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.55));
-      backdrop-filter:blur(8px);box-shadow:var(--shadow);min-height:160px;}
-    .panel.active{display:block}
-    footer{border-top:1px solid var(--line);background:rgba(0,0,0,.2);
-      padding:14px 20px;margin-top:32px;color:var(--sub);}
+      padding:8px 12px;border-radius:12px;cursor:pointer;font-size:14px}
+    .tab[aria-selected="true"]{border-color:var(--brand);color:#001018;background:linear-gradient(180deg,#61efff,#20d3f0)}
 
-    /* Temp table */
-    .temp-table{width:100%; border-collapse:collapse; font-size:13px}
-    .temp-table th,.temp-table td{border:1px solid #2a3a54; padding:6px 8px; text-align:center}
-    .temp-table th{background:#0e2037; color:#cde7ff}
-    .apparent-warn{color:var(--warn); font-weight:700}
-    .apparent-bad{color:var(--bad); font-weight:700}
+    .panels{margin-top:14px}
+    .panel{
+      display:none;padding:18px;border-radius:20px;border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.55));
+      backdrop-filter:blur(8px);box-shadow:var(--shadow);min-height:160px
+    }
+    .panel.active{display:block}
+
+    footer{border-top:1px solid var(--line);background:rgba(0,0,0,.2);padding:14px 20px;margin-top:32px;color:var(--sub)}
+
+    /* 테이블/상태 */
+    .temp-table{width:100%;border-collapse:collapse;font-size:13px}
+    .temp-table th,.temp-table td{border:1px solid #2a3a54;padding:6px 8px;text-align:center}
+    .temp-table th{background:#0e2037;color:#cde7ff}
+    .apparent-warn{color:var(--warn);font-weight:700}
+    .apparent-bad{color:var(--bad);font-weight:700}
+
+    .status-done{color:#3b82f6;font-weight:700}
+    .status-missing{color:var(--bad);font-weight:700}
+    .status-action{color:var(--warn);font-weight:700}
   </style>
 </head>
 <body>
   <header>
     <div class="head-wrap">
       <button class="logo-btn" id="homeBtn">SafeAIon</button>
-      <div class="right-actions"><a id="rawDataLink" href="#" target="_blank">원본 데이터 바로가기</a></div>
+      <div class="right-actions">
+        <a id="rawDataLink" href="#" target="_blank" rel="noopener">원본 데이터 바로가기</a>
+      </div>
     </div>
     <div class="controls">
       <div id="companyGroup" class="control-group">
@@ -120,15 +141,14 @@
           <h3>비상대피로</h3>
           <img
             src="https://raw.githubusercontent.com/kih4602/picture/main/%EB%B9%84%EC%83%81%EB%8C%80%ED%94%BC%EB%A1%9C.JPG"
-            alt="비상대피로 안내 이미지"
-            style="max-width:100%; height:auto"
+            alt="비상대피로 안내 이미지" style="max-width:100%;height:auto"
           />
         </article>
 
         <article class="card">
           <h3>금일 체감온도</h3>
           <div id="tempTableBox">로딩 중…</div>
-          <p id="heatAdvice" style="margin:6px 0 0; color:var(--sub); font-size:13px;">
+          <p id="heatAdvice" style="margin:6px 0 0;color:var(--sub);font-size:13px;">
             <span id="rule31">체감온도 31도 이상은 <b>폭염작업 준수</b></span>,
             <span id="rule33">33도 이상은 <b>2시간마다 20분씩 휴식 실시</b></span>
           </p>
@@ -149,12 +169,13 @@
         </article>
       </div>
 
-      <!-- FULL image banner -->
+      <!-- 하단 배너(로고 작게 + 흰 배경 + 문구) -->
       <aside id="adBanner" class="ad-banner" aria-label="회사 광고 배너">
         <img
           src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%97%90%EB%84%88%EC%A7%80%ED%94%8C%EB%9F%AC%EC%8A%A4%EB%A1%9C%EA%B3%A0.png"
           alt="에너지플러스 로고"
         />
+        <span class="ad-text">추후 에너지플러스 앱으로 연동됩니다.</span>
       </aside>
     </section>
 
@@ -162,43 +183,143 @@
     <section id="tabsSection" class="tabs-wrap hidden">
       <div id="tabs"></div>
       <div id="panels" class="panels">
-        <!-- 일반 -->
+        <!-- 일반 모드(공사업체) -->
         <section id="tab-notice" class="panel">
           <h2>공지사항</h2>
-          <div id="companyNoticeBox">
-            <p>업체를 선택하면 해당 업체의 최신 공지 1건을 표시합니다.</p>
-          </div>
+          <div id="companyNoticeBox"><p>업체를 선택하면 해당 업체의 최신 공지 1건을 표시합니다.</p></div>
           <small>
             원본 API:
-            <a href="https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/업체별공지"
-               target="_blank" rel="noopener">업체별공지 (Sheety)</a>
+            <a href="https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/업체별공지" target="_blank" rel="noopener">업체별공지 (Sheety)</a>
           </small>
         </section>
-        <section id="tab-register" class="panel"><h2>공사등록</h2></section>
-        <section id="tab-plan" class="panel"><h2>계획서작성</h2></section>
-        <section id="tab-jha" class="panel"><h2>작업위험성평가</h2></section>
+
+        <section id="tab-register" class="panel">
+          <h2>공사등록</h2>
+          <form id="registerForm" style="display:grid;grid-template-columns:140px 1fr;gap:10px 14px;max-width:780px">
+            <label for="regNo">공사번호</label>
+            <input id="regNo" type="text" readonly />
+
+            <label for="regName">공사명</label>
+            <input id="regName" type="text" placeholder="공사명을 입력하세요" />
+
+            <label for="regCompany">업체명</label>
+            <input id="regCompany" type="text" placeholder="업체명을 입력하세요" />
+
+            <label for="regType">공사구분</label>
+            <input id="regType" type="text" placeholder="예: 전기/토목/설비/기타" />
+
+            <label for="regPM">담당 PM</label>
+            <input id="regPM" type="text" placeholder="담당 PM 성명" />
+
+            <label for="regStart">공사시작일</label>
+            <input id="regStart" type="date" />
+
+            <label for="regEnd">공사종료일</label>
+            <input id="regEnd" type="date" />
+
+            <label for="regSummary">공사개요</label>
+            <textarea id="regSummary" rows="4" placeholder="공사 범위, 위치, 주요작업 등" style="resize:vertical"></textarea>
+
+            <label for="regWriter">작성자</label>
+            <input id="regWriter" type="text" placeholder="작성자 성명" />
+
+            <div></div>
+            <button id="registerSubmit" type="button" class="tab" style="justify-self:start">작성완료</button>
+          </form>
+          <small>작성완료 시 구글시트(공사관리)에 즉시 반영됩니다.</small>
+        </section>
+
+        <section id="tab-plan" class="panel">
+          <h2>계획서작성</h2>
+          <p>
+            시공계획서 &amp; 안전작업계획서 자동 작성페이지로 이동합니다 (Miso) —
+            <a href="https://edu.miso.gs/chatList/PNSlaAxMSdTgVZRx" target="_blank" rel="noopener">바로가기</a>
+          </p>
+        </section>
+
+        <section id="tab-jha" class="panel">
+          <h2>작업위험성평가</h2>
+          <p>
+            작업위험성평가 자동 작성페이지로 이동합니다 (Miso) —
+            <a href="https://edu.miso.gs/chatList/uukcyc2WeFtK3kzm" target="_blank" rel="noopener">바로가기</a>
+          </p>
+        </section>
+
         <section id="tab-access" class="panel">
           <h2>출입 및 교육관리</h2>
           <img
             src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%B6%9C%EC%9E%85%EC%9E%90_%EA%B3%A7.JPG"
-            alt="출입자 시스템 안내 이미지(곧)"
-            style="max-width:100%; height:auto"
+            alt="출입자 시스템 안내 이미지(곧)" style="max-width:100%;height:auto"
           />
           <p>(현재 52g, GS칼텍스 DX센터 협업 구축중 / 곧 출입자 시스템 연동 예정)</p>
         </section>
-        <section id="tab-tbm" class="panel"><h2>TBM</h2></section>
-        <section id="tab-observe" class="panel"><h2>안전관찰</h2></section>
-        <section id="tab-pssr" class="panel"><h2>가동전점검</h2></section>
-        <!-- 상주 -->
-        <section id="tab-res-training" class="panel"><h2>안전보건교육</h2></section>
-        <section id="tab-res-joint" class="panel"><h2>합동안전점검</h2></section>
-        <section id="tab-res-patrol" class="panel"><h2>작업장순회점검</h2></section>
-        <section id="tab-res-observe" class="panel"><h2>안전관찰</h2></section>
-        <!-- 긴급 -->
+
+        <section id="tab-tbm" class="panel">
+          <h2>TBM</h2>
+          <p>
+            TBM자료 자동 작성페이지로 이동합니다 (Miso) —
+            <a href="https://edu.miso.gs/chatList/BD525Ionu3C4lcbX" target="_blank" rel="noopener">바로가기</a>
+          </p>
+        </section>
+
+        <section id="tab-observe" class="panel">
+          <h2>안전관찰</h2>
+          <div id="observeBox"><p>업체를 선택하면 해당 업체의 안전관찰 목록이 표시됩니다.</p></div>
+        </section>
+
+        <section id="tab-pssr" class="panel">
+          <h2>가동전점검</h2>
+          <p>가동전점검 입력 페이지로 이동합니다.</p>
+        </section>
+
+        <!-- 상주협력업체 모드 -->
+        <section id="tab-res-training" class="panel">
+          <h2>안전보건교육</h2>
+          <div id="resTrainingBox"></div>
+        </section>
+        <section id="tab-res-joint" class="panel">
+          <h2>합동안전점검</h2>
+          <div id="resJointBox"></div>
+        </section>
+        <section id="tab-res-patrol" class="panel">
+          <h2>작업장순회점검</h2>
+          <div id="resPatrolBox"></div>
+        </section>
+        <section id="tab-res-observe" class="panel">
+          <h2>안전관찰</h2>
+          <p>아래 링크(Miso)에서 안전관찰을 입력하세요</p>
+          <p><a href="https://edu.miso.gs/chatList/ZDtEyQzprecmiOR9" target="_blank" rel="noopener">Miso 안전관찰 바로가기</a></p>
+        </section>
+
+        <!-- 긴급작업허가 모드 -->
         <section id="tab-urgent-notice" class="panel"><h2>공지사항</h2></section>
-        <section id="tab-urgent-company" class="panel"><h2>업체정보입력</h2></section>
-        <section id="tab-urgent-plan" class="panel"><h2>시공계획</h2></section>
-        <section id="tab-urgent-hazards" class="panel"><h2>위험요소 및 경감대책</h2></section>
+        <section id="tab-urgent-company" class="panel">
+          <h2>업체정보입력</h2>
+          <form id="urgentForm" style="display:grid;grid-template-columns:120px 1fr;gap:8px 12px;max-width:640px">
+            <label>공사번호</label>
+            <input id="urgentWorkNo" type="text" readonly />
+            <label>공사명</label>
+            <input id="urgentWorkName" type="text" placeholder="공사명을 입력하세요" />
+            <label>긴급공사구분</label>
+            <input id="urgentType" type="text" value="긴급" readonly />
+            <label>업체명</label>
+            <input id="urgentCompany" type="text" placeholder="업체명을 입력하세요" />
+          </form>
+        </section>
+        <section id="tab-urgent-plan" class="panel">
+          <h2>시공계획</h2>
+          <p>
+            시공계획서 자동 작성페이지로 이동합니다 (Miso) —
+            <a href="https://edu.miso.gs/chatList/2rlfBn3V5FX6BlHj" target="_blank" rel="noopener">바로가기</a>
+          </p>
+        </section>
+        <section id="tab-urgent-hazards" class="panel">
+          <h2>위험요소 및 경감대책</h2>
+          <p>
+            위험요소 및 경감대책 자동 작성페이지로 이동합니다 (Miso) —
+            <a href="https://edu.miso.gs/chatList/JX2OvIuXkdtFj0nl" target="_blank" rel="noopener">바로가기</a>
+          </p>
+        </section>
       </div>
     </section>
   </main>
@@ -206,14 +327,18 @@
   <footer>© The WolWor’s (월월이들) — SafeAIon</footer>
 
   <script>
-    /* ====== 설정/엔드포인트 ====== */
+    /* ====== 엔드포인트 ====== */
     const ENDPOINTS = {
       companies:   "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/해커톤SafeAion/업체명",
       noticesByCo: "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/업체별공지",
       noticesHome: "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/공지사항",
-      apparent:    "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/체감온도"
+      apparent:    "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/체감온도",
+      resident:    "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/해커톤SafeAion/상주협력업체",
+      projects:    "https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/해커톤SafeAion/공사관리",
+      observations:"https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/aIoT/안전관찰"
     };
 
+    /* ====== 탭 세트(한글) ====== */
     const TAB_SETS={
       general:[
         {id:'tab-notice',label:'공지사항'},{id:'tab-register',label:'공사등록'},
@@ -250,18 +375,19 @@
     const urgentNoticePanel=document.getElementById('tab-urgent-notice');
 
     /* ====== 상태 ====== */
-    let companies = [];           // [{id, name, isResident}]
-    let selectedCompany=null;     // {id, name, isResident}
+    let companies = [];       // [{id, name, isResident}]
+    let selectedCompany=null; // {id, name, isResident}
 
     window.addEventListener('DOMContentLoaded',init);
 
     async function init(){
+      // 원본 데이터 바로가기 링크
+      document.getElementById('rawDataLink').href =
+        "https://docs.google.com/spreadsheets/d/1HE5z0Dr_sIfVgKX-HgjtH3HX3GWLvCjwqZD7Qo7QVRg/edit?gid=1277410222#gid=1277410222";
+
       attachEvents();
-      await loadCompaniesFromSheet();      // 업체 드롭다운
-      await Promise.all([
-        loadHomeNoticeLatest(),            // 메인 공지
-        loadApparentTemperature()          // 체감온도(목록)
-      ]);
+      await loadCompaniesFromSheet();
+      await Promise.all([loadHomeNoticeLatest(), loadApparentTemperature()]);
       setMode('home');
     }
 
@@ -272,9 +398,28 @@
       });
       companySelect.addEventListener('change',onCompanyChange);
       urgentPermit.addEventListener('change',onUrgentToggle);
+
+      // 공사등록 제출 버튼 위임
+      document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'registerSubmit') {
+          submitGeneralRegistrationForm().catch(console.error);
+        }
+      });
     }
 
-    /* ====== 모드/탭 전환 ====== */
+    /* ====== 드롭다운 표시 텍스트 획득(문자열 비교용) ====== */
+    function getSelectedCompanyTextFromDropdown(){
+      try{
+        const opt = companySelect.options[companySelect.selectedIndex];
+        if(!opt) return '';
+        const txt = String(opt.text ?? '');
+        return txt.replace(/\s*\(상주\)\s*$/,'').trim(); // 라벨의 " (상주)" 제거
+      }catch{
+        return '';
+      }
+    }
+
+    /* ====== 모드/탭 ====== */
     function setMode(mode){
       const isHome=(mode==='home');
       homeSection.classList.toggle('hidden',!isHome);
@@ -287,7 +432,7 @@
       panelsEl.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
       set.forEach(tabObj=>{
         const btn=document.createElement('button');
-        btn.className='tab';
+        btn.className='tab'; btn.type='button';
         btn.setAttribute('aria-controls',tabObj.id);
         btn.setAttribute('aria-selected','false');
         btn.textContent=tabObj.label;
@@ -301,16 +446,15 @@
     function clearTabs(){tabsEl.innerHTML='';}
     function activateTab(panelId){
       tabsEl.querySelectorAll('.tab').forEach(t=>{
-        const isActive=(t.getAttribute('aria-controls')===panelId);
-        t.setAttribute('aria-selected',String(isActive));
-        t.tabIndex=isActive?0:-1;
+        const active=(t.getAttribute('aria-controls')===panelId);
+        t.setAttribute('aria-selected',String(active)); t.tabIndex=active?0:-1;
       });
       panelsEl.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===panelId));
     }
 
-    /* ====== 업체 선택/긴급 토글 ====== */
+    /* ====== 업체 선택/긴급 ====== */
     function onCompanyChange(){
-      const value=companySelect.value; // option value = company.id
+      const value=companySelect.value;
       if(!value){
         selectedCompany=null;
         if(!urgentPermit.checked) setMode('home');
@@ -321,36 +465,55 @@
       selectedCompany = companies.find(c=>String(c.id)===String(value)) || null;
 
       if(selectedCompany?.isResident){
-        urgentPermit.checked = false;
-        showUrgentControl(false);  // 상주 선택 시 긴급 숨김
+        urgentPermit.checked=false;
+        showUrgentControl(false);
         setMode('resident');
+
+        // 상주 패널 데이터 로딩 (요청: 2025년)
+        const year = 2025;
+        Promise.all([
+          loadResidentEducation(year, selectedCompany.name),
+          loadResidentJointInspection(year, selectedCompany.name),
+          loadResidentPatrolNotes(year, selectedCompany.name)
+        ]).catch(console.error);
+
       }else{
         showUrgentControl(true);
         setMode('general');
+
+        // 공사업체(일반) 진입 시: 공사등록 폼/안전관찰 로딩
+        prefillGeneralRegistrationForm().catch(console.error);
+        loadCompanyObservations(selectedCompany.name).catch(console.error);
       }
 
-      if(selectedCompany?.name){
-        loadLatestCompanyNotice(selectedCompany.name)
-          .catch(err=>{
-            console.error(err);
-            companyNoticeBox.innerHTML='<p>공지 불러오기 실패</p>';
-          });
+      // ▼ 드롭다운의 표시 텍스트로 비교(문자열 강제)
+      const displayName = getSelectedCompanyTextFromDropdown() || selectedCompany?.name || '';
+      if(displayName){
+        loadLatestCompanyNotice(displayName)
+          .catch(err=>{ console.error(err); companyNoticeBox.innerHTML='<p>공지 불러오기 실패</p>'; });
       }
     }
 
     function onUrgentToggle(e){
       if(e.target.checked){
         setMode('urgent');
-        companyGroup.classList.add('hidden'); // 긴급 ON -> 업체선택 숨김
-        // 3) 긴급 공지 문구 표시
+        companyGroup.classList.add('hidden');
+
+        // 긴급 공지 패널 안내 문구
         urgentNoticePanel.innerHTML = `
           <h2>공지사항</h2>
           <p>업체정보입력 &gt; 시공계획 &gt; 위험요소 및 경감대책 순서로 업로드 하고, 담당 PM에게 연락 바랍니다.</p>
         `;
+
+        prefillUrgentForm().catch(console.error);
       }else{
         companyGroup.classList.remove('hidden');
         if(selectedCompany){
           setMode(selectedCompany.isResident ? 'resident' : 'general');
+          if(!selectedCompany.isResident){
+            prefillGeneralRegistrationForm().catch(console.error);
+            loadCompanyObservations(selectedCompany.name).catch(console.error);
+          }
         }else{
           setMode('home');
         }
@@ -358,13 +521,12 @@
     }
     function showUrgentControl(show){urgentGroup.classList.toggle('hidden',!show);}
 
-    /* ====== 회사 목록 로드 ====== */
+    /* ====== 회사 목록 (업체명 A열, 구분 B열) ====== */
     async function loadCompaniesFromSheet(){
       try{
         const res = await fetch(ENDPOINTS.companies);
         if(!res.ok) throw new Error('업체 목록 API 호출 실패');
         const json = await res.json();
-
         const arrKey = Object.keys(json).find(k=>Array.isArray(json[k]));
         const rows = arrKey ? json[arrKey] : [];
         companies = rows.map((r, i) => {
@@ -376,7 +538,6 @@
             isResident: typeRaw === '상주협력업체'
           };
         }).filter(c => c.name);
-
         populateCompanySelect(companies);
       }catch(err){
         console.error(err);
@@ -384,24 +545,18 @@
         populateCompanySelect(companies);
       }
     }
-
     function populateCompanySelect(list){
       const placeholder = document.createElement('option');
-      placeholder.value = '';
-      placeholder.textContent = '업체를 선택하세요';
-
-      companySelect.innerHTML = '';
-      companySelect.appendChild(placeholder);
-
+      placeholder.value = ''; placeholder.textContent = '업체를 선택하세요';
+      companySelect.innerHTML = ''; companySelect.appendChild(placeholder);
       list.forEach(c=>{
         const opt=document.createElement('option');
-        opt.value = c.id; // 내부적으로 id로 식별
-        opt.textContent = c.name + (c.isResident ? ' (상주)' : '');
+        opt.value=c.id; opt.textContent = c.name + (c.isResident ? ' (상주)' : '');
         companySelect.appendChild(opt);
       });
     }
 
-    /* ====== 공지(메인) 로딩 ====== */
+    /* ====== 메인 공지 (공지사항 시트: A=날짜, B/C 노출) ====== */
     async function loadHomeNoticeLatest(){
       try{
         const res = await fetch(ENDPOINTS.noticesHome);
@@ -435,58 +590,77 @@
       }
     }
 
-    /* ====== 공지(업체별) 로딩 ====== */
+    /* ====== 업체별 최신 공지 (표시 텍스트 기반, 문자열 강제 비교) ====== */
     async function loadLatestCompanyNotice(companyName){
-      const res = await fetch(ENDPOINTS.noticesByCo);
-      if (!res.ok) throw new Error('공지 API 호출 실패');
-      const data = await res.json();
+      try {
+        const res = await fetch(ENDPOINTS.noticesByCo);
+        if (!res.ok) throw new Error('공지 API 호출 실패');
 
-      const arrKey = Object.keys(data).find(k => Array.isArray(data[k]));
-      const rows = arrKey ? data[arrKey] : [];
+        const data = await res.json();
+        const arrKey = Object.keys(data).find(k => Array.isArray(data[k]));
+        const rows = arrKey ? data[arrKey] : [];
 
-      if (!rows.length) {
-        companyNoticeBox.innerHTML = '<p>공지 없음</p>';
-        return;
+        if (!rows.length) {
+          companyNoticeBox.innerHTML = '<p>공지 없음</p>';
+          return;
+        }
+
+        // ── 로컬 유틸 ──
+        const toText = (v) => String(v ?? '').trim();
+        const normalize = (str) => toText(str).replace(/\s+/g, '');
+        const parseKDotDateLocal = (str) => {
+          const s = toText(str);
+          const parts = s.split('.');
+          if (parts.length < 3) return null;
+          const [yy, mm, dd] = parts.map(x => parseInt(toText(x), 10));
+          const d = new Date(yy, (mm||1)-1, dd||1);
+          return isNaN(d) ? null : d;
+        };
+        const formatKDotDateLocal = (d) => {
+          if (!(d instanceof Date) || isNaN(d)) return '';
+          const yyyy = d.getFullYear();
+          const mm = String(d.getMonth() + 1).padStart(2,'0');
+          const dd = String(d.getDate()).padStart(2,'0');
+          return `${yyyy}.${mm}.${dd}`;
+        };
+
+        const normTarget = normalize(companyName);
+        const matched = rows.filter(row => normalize(row['업체명']) === normTarget);
+
+        if (!matched.length) {
+          companyNoticeBox.innerHTML = '<p>해당 업체 공지가 없습니다.</p>';
+          return;
+        }
+
+        matched.sort((a, b) => {
+          const da = parseKDotDateLocal(a['날짜']);
+          const db = parseKDotDateLocal(b['날짜']);
+          const ta = da ? da.getTime() : -Infinity;
+          const tb = db ? db.getTime() : -Infinity;
+          return tb - ta;
+        });
+
+        const latest = matched[0];
+        const title = toText(latest['제목']) || '(제목 없음)';
+        const content = toText(latest['내용']);
+        const dateStr = formatKDotDateLocal(parseKDotDateLocal(latest['날짜']));
+
+        const linkHtml = `<a href="${ENDPOINTS.noticesByCo}" target="_blank" rel="noopener">원본(JSON) 보기</a>`;
+        companyNoticeBox.innerHTML = `
+          <article>
+            <h3 style="margin:0 0 6px">${escapeHtml(title)}</h3>
+            ${dateStr ? `<small style="color:#9ca3af">날짜: ${dateStr}</small>` : ''}
+            ${content ? `<p style="margin:8px 0 0;color:#cbd5e1">${escapeHtml(content)}</p>` : ''}
+            <div style="margin-top:8px">${linkHtml}</div>
+          </article>
+        `;
+      } catch (err) {
+        console.error(err);
+        companyNoticeBox.innerHTML = '<p>공지 불러오기 실패</p>';
       }
-
-      const matched = rows.filter(row => String(row['업체명'] || '').trim() === String(companyName).trim());
-      if (!matched.length) {
-        companyNoticeBox.innerHTML = '<p>해당 업체 공지가 없습니다.</p>';
-        return;
-      }
-
-      matched.sort((a, b) => {
-        const da = parseKDotDate(getDateField(a));
-        const db = parseKDotDate(getDateField(b));
-        if(da && db) return db - da;
-        if(db) return 1;
-        if(da) return -1;
-        return 0;
-      });
-      const latest = matched[0];
-
-      const title = getPreferred(latest,['제목','title','공지']) || '(제목 없음)';
-      const content = getPreferred(latest,['내용','content','본문']) || '';
-      const d = parseKDotDate(getDateField(latest));
-      const dateStr = d ? formatKDotDate(d) : '';
-
-      const linkHtml = `<a href="${ENDPOINTS.noticesByCo}" target="_blank" rel="noopener">원본(JSON) 보기</a>`;
-      companyNoticeBox.innerHTML = `
-        <article>
-          <h3 style="margin:0 0 6px">${escapeHtml(title)}</h3>
-          ${dateStr ? `<small style="color:#9ca3af">날짜: ${dateStr}</small>` : ''}
-          ${content ? `<p style="margin:8px 0 0;color:#cbd5e1">${escapeHtml(content)}</p>` : ''}
-          <div style="margin-top:8px">${linkHtml}</div>
-        </article>
-      `;
     }
 
-    /* ====== 체감온도(오늘 전시간) 로딩 ======
-       - 오늘 날짜(A열:"YYYY. M. D") 필터
-       - B열 시간 오름차순
-       - C/D/E: 온도/습도/체감온도 전부 표시
-       - 31℃+ 주황, 33℃+ 빨강
-    */
+    /* ====== 체감온도(금일 전시간 테이블) ====== */
     async function loadApparentTemperature(){
       try{
         const res = await fetch(ENDPOINTS.apparent);
@@ -496,21 +670,19 @@
         const rows = arrKey ? json[arrKey] : [];
         if(!rows.length){ tempTableBox.textContent='데이터 없음'; return; }
 
-        // 오늘 날짜 문자열 (KST 기준 "YYYY. M. D")
         const todayStr = todayKDotString();
 
-        // 날짜 키 감지
-        const dateKey = detectKey(rows[0], ['날짜','일자','작성일','date','Date','작성일자']);
-        const timeKey = detectKey(rows[0], ['시간','time','Time']);
-        const tempKey = detectKey(rows[0], ['온도','temperature','temp','Temp']);
-        const humiKey = detectKey(rows[0], ['습도','humidity','Humi','hum']);
-        const appKey  = detectKey(rows[0], ['체감온도','apparent','heatIndex','HI']);
+        const sample = rows[0];
+        const dateKey = detectKey(sample, ['날짜','일자','작성일','date','Date','작성일자']);
+        const timeKey = detectKey(sample, ['시간','time','Time']);
+        const tempKey = detectKey(sample, ['온도','temperature','temp','Temp','C']);
+        const humiKey = detectKey(sample, ['습도','humidity','Humi','hum','D']);
+        const appKey  = detectKey(sample, ['체감온도','apparent','heatIndex','HI','E']);
 
         const todayRows = rows.filter(r=>{
           const d = r[dateKey];
           return d && equalKDotDate(d, todayStr);
         });
-
         if(!todayRows.length){ tempTableBox.textContent='금일 데이터 없음'; return; }
 
         todayRows.sort((a,b)=>{
@@ -519,7 +691,6 @@
           return ta - tb;
         });
 
-        // 테이블 렌더
         const table = document.createElement('table');
         table.className='temp-table';
         table.innerHTML = `
@@ -534,11 +705,9 @@
           const t  = safeNum(r[tempKey]);
           const h  = safeNum(r[humiKey]);
           const ap = safeNum(r[appKey]);
-          const tr = document.createElement('tr');
-
           const apClass = (ap!==null && ap>=33) ? 'apparent-bad'
-                         : (ap!==null && ap>=31) ? 'apparent-warn' : '';
-
+                        : (ap!==null && ap>=31) ? 'apparent-warn' : '';
+          const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${escapeHtml(String(r[timeKey] ?? ''))}</td>
             <td>${t!==null ? t : ''}</td>
@@ -548,10 +717,8 @@
           tbody.appendChild(tr);
         });
 
-        tempTableBox.innerHTML='';
-        tempTableBox.appendChild(table);
+        tempTableBox.innerHTML=''; tempTableBox.appendChild(table);
 
-        // 하단 안내 강조(최대값 기준)
         const maxAp = todayRows.reduce((m,r)=>{
           const v = safeNum(r[appKey]); return v!==null ? Math.max(m,v) : m;
         }, -Infinity);
@@ -564,36 +731,327 @@
       }
     }
 
-    /* ====== 공통 유틸 ====== */
-    function detectKey(obj, candidates){
-      for(const k of candidates){ if(k in obj) return k; }
-      return candidates[0]; // fallback
+    /* ====== 상주협력업체: 교육(12개월) ====== */
+    function detectKey(obj, candidates){ for(const k of candidates){ if(k in obj) return k; } return candidates[0]; }
+    function kdotYear(d){ const m=String(d).match(/^\s*(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\s*$/); return m? +m[1] : null; }
+
+    async function loadResidentEducation(year, companyName){
+      const box = document.getElementById('resTrainingBox');
+      box.innerHTML = '로딩 중…';
+      const res = await fetch(ENDPOINTS.resident);
+      if(!res.ok){ box.textContent='로드 실패'; return; }
+      const j = await res.json();
+      const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
+      const rows = arrKey ? j[arrKey] : [];
+      if(!rows.length){ box.textContent='데이터 없음'; return; }
+
+      const sample = rows[0];
+      const companyKey = detectKey(sample, ['업체명','회사명','company','Company']);
+      const monthKey   = detectKey(sample, ['월','month','Month']);
+      const dateKey    = detectKey(sample, ['날짜','일자','작성일','date','Date','작성일자']);
+      const dKey       = detectKey(sample, ['상태','결과','완료','교육','D','d']);
+
+      const filtered = rows.filter(r=>{
+        if(String(r[companyKey] ?? '').trim() !== String(companyName).trim()) return false;
+        const yy = r['연도'] ?? r['year'] ?? r['Year'];
+        if(yy) return String(yy) === String(year);
+        const kd = dateKey ? kdotYear(r[dateKey]) : null;
+        return kd ? kd === year : true;
+      });
+
+      const byMonth = new Map();
+      filtered.forEach(r=>{
+        const m = parseInt(String(r[monthKey] ?? '').replace(/[^\d]/g,'')) || null;
+        if(!m || m<1 || m>12) return;
+        const v = (r[dKey] ?? '').toString().trim();
+        byMonth.set(m, v);
+      });
+
+      const ul = document.createElement('ul');
+      ul.style.listStyle='none'; ul.style.margin='0'; ul.style.padding='0';
+      for(let m=1;m<=12;m++){
+        const v = byMonth.get(m);
+        let label, cls;
+        if(v && v === '완료'){ label='완료'; cls='status-done'; }
+        else { label='미실시'; cls='status-missing'; }
+        const li = document.createElement('li');
+        li.innerHTML = `<b>${m}월</b> : <span class="${cls}">${label}</span>`;
+        ul.appendChild(li);
+      }
+      box.innerHTML = ''; box.appendChild(ul);
     }
-    function safeNum(v){
-      if(v==null) return null;
-      const n = parseFloat(String(v).replace(/[^\d.]/g,''));
-      return isFinite(n) ? Math.round(n) : null;
+
+    /* ====== 상주협력업체: 합동안전점검(4분기) ====== */
+    async function loadResidentJointInspection(year, companyName){
+      const box = document.getElementById('resJointBox');
+      box.innerHTML = '로딩 중…';
+      const res = await fetch(ENDPOINTS.resident);
+      if(!res.ok){ box.textContent='로드 실패'; return; }
+      const j = await res.json();
+      const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
+      const rows = arrKey ? j[arrKey] : [];
+      if(!rows.length){ box.textContent='데이터 없음'; return; }
+
+      const sample = rows[0];
+      const companyKey = detectKey(sample, ['업체명','회사명','company','Company']);
+      const quarterKey = detectKey(sample, ['분기','quarter','Quarter']);
+      const dateKey    = detectKey(sample, ['날짜','일자','작성일','date','Date','작성일자']);
+      const statusKey  = detectKey(sample, ['점검','상태','결과','완료','D','d']);
+
+      const filtered = rows.filter(r=>{
+        if(String(r[companyKey] ?? '').trim() !== String(companyName).trim()) return false;
+        const yy = r['연도'] ?? r['year'] ?? r['Year'];
+        if(yy) return String(yy) === String(year);
+        const kd = dateKey ? kdotYear(r[dateKey]) : null;
+        return kd ? kd === year : true;
+      });
+
+      const result = {1:null,2:null,3:null,4:null};
+      filtered.forEach(r=>{
+        const q = parseInt(String(r[quarterKey] ?? '').replace(/[^\d]/g,'')) || null;
+        if(!(q>=1 && q<=4)) return;
+        const v = (r[statusKey] ?? '').toString().trim();
+        if(result[q]==null) result[q]=v;
+      });
+
+      const ul = document.createElement('ul');
+      ul.style.listStyle='none'; ul.style.margin='0'; ul.style.padding='0';
+      for(let q=1;q<=4;q++){
+        const v = result[q];
+        let label, cls;
+        if(v === '완료'){ label='완료'; cls='status-done'; }
+        else if(v && v !== '완료'){ label='조치필요'; cls='status-action'; }
+        else { label='미실시'; cls='status-missing'; }
+        const li = document.createElement('li');
+        li.innerHTML = `<b>${q}분기</b> : <span class="${cls}">${label}</span>`;
+        ul.appendChild(li);
+      }
+      box.innerHTML = ''; box.appendChild(ul);
     }
-    function parseTimeToMinutes(s){
-      if(!s) return Number.MAX_SAFE_INTEGER;
-      const m = String(s).match(/(\d{1,2}):(\d{2})/);
-      if(!m) return Number.MAX_SAFE_INTEGER;
-      return (+m[1])*60 + (+m[2]);
+
+    /* ====== 상주협력업체: 작업장순회점검(이번 주차 특이사항) ====== */
+    async function loadResidentPatrolNotes(year, companyName){
+      const box = document.getElementById('resPatrolBox');
+      box.innerHTML = '로딩 중…';
+      const res = await fetch(ENDPOINTS.resident);
+      if(!res.ok){ box.textContent='로드 실패'; return; }
+      const j = await res.json();
+      const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
+      const rows = arrKey ? j[arrKey] : [];
+      if(!rows.length){ box.textContent='데이터 없음'; return; }
+
+      const sample = rows[0];
+      const companyKey = detectKey(sample, ['업체명','회사명','company','Company']);
+      const weekKey    = detectKey(sample, ['주차','week','Week']);
+      const noteKey    = detectKey(sample, ['특이사항','F','비고','메모','note','Note']);
+      const dateKey    = detectKey(sample, ['날짜','일자','작성일','date','Date','작성일자']);
+
+      const thisYear = year;
+      const thisWeek = (()=>{ // Asia/Seoul 기준 대략적 주차
+        const now = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
+        const jan1 = new Date(now.getFullYear(),0,1);
+        const day = (jan1.getDay()+6)%7; // Mon=0
+        const diff = (now - jan1 + (day*24*60*60*1000));
+        return Math.ceil(diff / (7*24*60*60*1000));
+      })();
+
+      const filtered = rows.filter(r=>{
+        if(String(r[companyKey] ?? '').trim() !== String(companyName).trim()) return false;
+        const yy = r['연도'] ?? r['year'] ?? r['Year'];
+        if(yy && String(yy)!==String(thisYear)) return false;
+        if(!yy && dateKey){
+          const kd = kdotYear(r[dateKey]); if(kd && kd!==thisYear) return false;
+        }
+        return String(r[weekKey] ?? '').replace(/[^\d]/g,'') === String(thisWeek);
+      });
+
+      if(!filtered.length){ box.textContent='이번 주차 특이사항 없음'; return; }
+
+      const note = (filtered[0][noteKey] ?? '').toString().trim();
+      box.textContent = note ? note : '이번 주차 특이사항 없음';
     }
-    function todayKDotString(){
-      // Asia/Seoul 기준 오늘
+
+    /* ====== 긴급: 업체정보입력 폼 자동 채움 ====== */
+    async function prefillUrgentForm(){
+      const year = 2025;
+      const noInput = document.getElementById('urgentWorkNo');
+      const typeInput = document.getElementById('urgentType');
+      const compInput = document.getElementById('urgentCompany');
+
+      typeInput.value = '긴급';
+      compInput.value = selectedCompany?.name || '';
+
+      let nextNo = `${year}-001`;
       try{
-        const d = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
-        return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
-      }catch{
-        const d = new Date();
-        return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
+        const r = await fetch(ENDPOINTS.projects);
+        if(r.ok){
+          const j = await r.json();
+          const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
+          const rows = arrKey ? j[arrKey] : [];
+          const nums = rows.map(x => String(x['공사번호'] ?? x['번호'] ?? '')).filter(s => new RegExp(`^${year}-\\d{3}$`).test(s));
+          if(nums.length){
+            nums.sort();
+            const last = nums[nums.length-1];
+            const n = parseInt(last.split('-')[1],10)+1;
+            nextNo = `${year}-${String(n).padStart(3,'0')}`;
+          }
+        }
+      }catch(e){ console.error(e); }
+      noInput.value = nextNo;
+    }
+
+    /* ====== 공사등록(일반): 다음 번호/기본값/제출 ====== */
+    async function computeNextProjectNo(year = 2025){
+      let nextNo = `${year}-001`;
+      try{
+        const r = await fetch(ENDPOINTS.projects);
+        if(r.ok){
+          const j = await r.json();
+          const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
+          const rows = arrKey ? j[arrKey] : [];
+          const nums = rows
+            .map(x => String(x['공사번호'] ?? x['번호'] ?? '').trim())
+            .filter(s => new RegExp(`^${year}-\\d{3}$`).test(s))
+            .sort();
+          if(nums.length){
+            const last = nums[nums.length-1];
+            const n = parseInt(last.split('-')[1],10) + 1;
+            nextNo = `${year}-${String(n).padStart(3,'0')}`;
+          }
+        }
+      }catch(e){ console.error(e); }
+      return nextNo;
+    }
+
+    async function prefillGeneralRegistrationForm(){
+      const year = 2025;
+      const el = (id) => document.getElementById(id);
+      if(!el('regNo')) return; // 탭 미생성시 스킵
+
+      const nextNo = await computeNextProjectNo(year);
+      el('regNo').value = nextNo;
+
+      // 공사명은 빈칸(힌트만 보이도록)
+      el('regName').value = '';
+
+      // 업체명은 디폴트로 선택업체 유지
+      el('regCompany').value = selectedCompany?.name || '';
+
+      el('regType').value = '';
+      el('regPM').value = '';
+      el('regStart').value = '';
+      el('regEnd').value = '';
+      el('regSummary').value = '';
+      el('regWriter').value = '';
+    }
+
+    async function submitGeneralRegistrationForm(){
+      const el = (id) => document.getElementById(id);
+      const payload = {
+        공사번호: el('regNo')?.value?.trim(),
+        공사명: el('regName')?.value?.trim(),
+        업체명: el('regCompany')?.value?.trim(),
+        공사구분: el('regType')?.value?.trim(),
+        담당PM: el('regPM')?.value?.trim(),            // 내부 표준 키는 '담당PM'
+        공사시작일: el('regStart')?.value || '',
+        공사종료일: el('regEnd')?.value || '',
+        공사개요: el('regSummary')?.value?.trim(),
+        작성자: el('regWriter')?.value?.trim(),
+        작성일시: new Date().toISOString()
+      };
+
+      // 필수 체크
+      for(const k of ['공사번호','공사명','업체명']){
+        if(!payload[k]){ alert(`${k}을(를) 입력하세요.`); return; }
+      }
+
+      // 시트의 실제 컬럼명 검사 → '담당PM' 매핑
+      const detectProjectsColumns = async () => {
+        try{
+          const r = await fetch(ENDPOINTS.projects);
+          if(!r.ok) return [];
+          const j = await r.json();
+          const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
+          const rows = arrKey ? j[arrKey] : [];
+          const sample = rows[0] || {};
+          return Object.keys(sample);
+        }catch{ return []; }
+      };
+
+      const cols = await detectProjectsColumns();
+      const pmCandidates = ['담당PM','담당 PM','PM','담당자'];
+      const pmCol = pmCandidates.find(k => cols.includes(k)) || '담당PM';
+
+      // 실제 전송 바디 구성(필요 시 '담당 PM' 등으로 교체)
+      const out = { ...payload };
+      if(pmCol !== '담당PM'){
+        out[pmCol] = out['담당PM'];
+        delete out['담당PM'];
+      }
+
+      try{
+        const res = await fetch(ENDPOINTS.projects, {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify({ "공사관리": out })
+        });
+        if(!res.ok){
+          const t = await res.text();
+          throw new Error('공사등록 실패: ' + t);
+        }
+        alert('공사등록이 완료되었습니다.');
+        prefillGeneralRegistrationForm().catch(console.error);
+      }catch(err){
+        console.error(err);
+        alert('저장 중 오류가 발생했습니다.');
       }
     }
-    function equalKDotDate(a, kdotStr){
-      const da = formatKDotDate(parseKDotDate(a));
-      return da === kdotStr;
+
+    /* ====== 안전관찰(공사업체): 회사명 동일 전체 표시 ====== */
+    async function loadCompanyObservations(companyName){
+      const box = document.getElementById('observeBox');
+      if(!box){ return; }
+      box.innerHTML = '로딩 중…';
+
+      try{
+        const res = await fetch(ENDPOINTS.observations);
+        if(!res.ok) throw new Error('안전관찰 API 실패');
+        const j = await res.json();
+        const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
+        const rows = arrKey ? j[arrKey] : [];
+        if(!rows.length){ box.textContent='데이터 없음'; return; }
+
+        const sample = rows[0];
+        const companyKey = ['업체명','회사명','company','Company'].find(k => k in sample) || '업체명';
+
+        const matched = rows.filter(r => String(r[companyKey] ?? '').trim() === String(companyName).trim());
+        if(!matched.length){ box.textContent='해당 업체의 안전관찰이 없습니다.'; return; }
+
+        const cols = Array.from(
+          matched.reduce((set, r)=>{ Object.keys(r).forEach(k=>set.add(k)); return set; }, new Set())
+        ).filter(k => k !== 'id');
+
+        const table = document.createElement('table');
+        table.className = 'temp-table';
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        thead.innerHTML = `<tr>${cols.map(c=>`<th>${escapeHtml(c)}</th>`).join('')}</tr>`;
+        matched.forEach(r=>{
+          const tr = document.createElement('tr');
+          tr.innerHTML = cols.map(c=>`<td>${escapeHtml(r[c] ?? '')}</td>`).join('');
+          tbody.appendChild(tr);
+        });
+
+        table.appendChild(thead); table.appendChild(tbody);
+        box.innerHTML = ''; box.appendChild(table);
+      }catch(err){
+        console.error(err);
+        box.textContent = '안전관찰 불러오기 실패';
+      }
     }
+
+    /* ====== 날짜/텍스트 유틸 ====== */
     function parseKDotDate(input){
       if(!input) return null;
       const m = String(input).match(/^\s*(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\s*$/);
@@ -610,6 +1068,23 @@
       const y = d.getFullYear(), m = d.getMonth()+1, day = d.getDate();
       return `${y}. ${m}. ${day}`;
     }
+    function todayKDotString(){
+      try{
+        const d = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
+        return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
+      }catch{
+        const d = new Date(); return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
+      }
+    }
+    function equalKDotDate(a, kdotStr){
+      const da = formatKDotDate(parseKDotDate(a)); return da === kdotStr;
+    }
+    function parseTimeToMinutes(s){
+      if(!s) return Number.MAX_SAFE_INTEGER;
+      const m = String(s).match(/(\d{1,2}):(\d{2})/);
+      if(!m) return Number.MAX_SAFE_INTEGER;
+      return (+m[1])*60 + (+m[2]);
+    }
     function getDateField(row){
       const keys = ['날짜','일자','작성일','date','Date','작성일자'];
       for(const k of keys){ if(row[k]) return row[k]; }
@@ -623,6 +1098,10 @@
       const dateKey = Object.keys(obj).find(k=>/날짜|date/i.test(k));
       const keys = Object.keys(obj).filter(k=>k!=='id' && k!==dateKey);
       return obj[keys[n]] ?? null;
+    }
+    function safeNum(v){
+      if(v==null) return null;
+      const n = parseFloat(String(v).replace(/[^\d.]/g,'')); return isFinite(n) ? Math.round(n) : null;
     }
     function escapeHtml(str){
       return String(str).replace(/[&<>"']/g, m => ({
