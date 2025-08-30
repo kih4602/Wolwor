@@ -73,13 +73,13 @@
     }
     .card h3{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:10px}
 
-    /* 작은 로고 + 흰 배경 배너 */
+    /* 하단 배너(로고 작게 + 흰 배경) */
     .ad-banner{
       position:fixed;left:0;right:0;bottom:0;z-index:15;height:50px;
       border-top:1px solid var(--line);background:#fff;
       display:flex;align-items:center;gap:12px;justify-content:center;padding:6px 10px
     }
-    .ad-banner img{height:128px;width:auto;display:block}
+    .ad-banner img{height:24px;width:auto;display:block}
     .ad-banner .ad-text{color:#111827;font-size:13px}
 
     .tabs-wrap{margin-top:4px}
@@ -111,6 +111,15 @@
     .status-done{color:#3b82f6;font-weight:700}
     .status-missing{color:var(--bad);font-weight:700}
     .status-action{color:var(--warn);font-weight:700}
+
+    /* Toast */
+    .toast-wrap{position:fixed; right:16px; bottom:66px; display:flex; flex-direction:column; gap:8px; z-index:50; pointer-events:none;}
+    .toast{min-width:220px; max-width:360px; background:#111827; color:#e5e7eb; border:1px solid #273244; border-radius:12px; padding:10px 12px; box-shadow:var(--shadow); pointer-events:auto; opacity:0; transform:translateY(8px); animation:toast-in .18s ease forwards; font-size:14px; line-height:1.3;}
+    .toast.success{border-color:#065f46; background:#064e3b}
+    .toast.warn{border-color:#92400e; background:#78350f}
+    .toast.error{border-color:#7f1d1d; background:#7f1d1d}
+    @keyframes toast-in{to{opacity:1; transform:translateY(0)}}
+    @keyframes toast-out{to{opacity:0; transform:translateY(6px)}}
   </style>
 </head>
 <body>
@@ -139,10 +148,7 @@
       <div class="home-grid">
         <article class="card">
           <h3>비상대피로</h3>
-          <img
-            src="https://raw.githubusercontent.com/kih4602/picture/main/%EB%B9%84%EC%83%81%EB%8C%80%ED%94%BC%EB%A1%9C.JPG"
-            alt="비상대피로 안내 이미지" style="max-width:100%;height:auto"
-          />
+          <img src="https://raw.githubusercontent.com/kih4602/picture/main/%EB%B9%84%EC%83%81%EB%8C%80%ED%94%BC%EB%A1%9C.JPG" alt="비상대피로 안내 이미지" style="max-width:100%;height:auto"/>
         </article>
 
         <article class="card">
@@ -161,20 +167,12 @@
 
         <article class="card">
           <h3>MSDS 페이지</h3>
-          <p>
-            <a href="https://kih4602.github.io/GSC_IT_MSDS/" target="_blank" rel="noopener">
-              인천물류센터 MSDS 전체 보기
-            </a>
-          </p>
+          <p><a href="https://kih4602.github.io/GSC_IT_MSDS/" target="_blank" rel="noopener">인천물류센터 MSDS 전체 보기</a></p>
         </article>
       </div>
 
-      <!-- 하단 배너(로고 작게 + 흰 배경 + 문구) -->
       <aside id="adBanner" class="ad-banner" aria-label="회사 광고 배너">
-        <img
-          src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%97%90%EB%84%88%EC%A7%80%ED%94%8C%EB%9F%AC%EC%8A%A4%EB%A1%9C%EA%B3%A0.png"
-          alt="에너지플러스 로고"
-        />
+        <img src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%97%90%EB%84%88%EC%A7%80%ED%94%8C%EB%9F%AC%EC%8A%A4%EB%A1%9C%EA%B3%A0.png" alt="에너지플러스 로고"/>
         <span class="ad-text">추후 에너지플러스 앱으로 연동됩니다.</span>
       </aside>
     </section>
@@ -187,79 +185,141 @@
         <section id="tab-notice" class="panel">
           <h2>공지사항</h2>
           <div id="companyNoticeBox"><p>업체를 선택하면 해당 업체의 최신 공지 1건을 표시합니다.</p></div>
-          <small>
-            원본 API:
-            <a href="https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/업체별공지" target="_blank" rel="noopener">업체별공지 (Sheety)</a>
-          </small>
+          <small>원본 API: <a href="https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/체감온도/업체별공지" target="_blank" rel="noopener">업체별공지 (Sheety)</a></small>
         </section>
 
         <section id="tab-register" class="panel">
           <h2>공사등록</h2>
           <form id="registerForm" style="display:grid;grid-template-columns:140px 1fr;gap:10px 14px;max-width:780px">
-            <label for="regNo">공사번호</label>
-            <input id="regNo" type="text" readonly />
-
-            <label for="regName">공사명</label>
-            <input id="regName" type="text" placeholder="공사명을 입력하세요" />
-
-            <label for="regCompany">업체명</label>
-            <input id="regCompany" type="text" placeholder="업체명을 입력하세요" />
-
-            <label for="regType">공사구분</label>
-            <input id="regType" type="text" placeholder="예: 전기/토목/설비/기타" />
-
-            <label for="regPM">담당 PM</label>
-            <input id="regPM" type="text" placeholder="담당 PM 성명" />
-
-            <label for="regStart">공사시작일</label>
-            <input id="regStart" type="date" />
-
-            <label for="regEnd">공사종료일</label>
-            <input id="regEnd" type="date" />
-
-            <label for="regSummary">공사개요</label>
-            <textarea id="regSummary" rows="4" placeholder="공사 범위, 위치, 주요작업 등" style="resize:vertical"></textarea>
-
-            <label for="regWriter">작성자</label>
-            <input id="regWriter" type="text" placeholder="작성자 성명" />
-
-            <div></div>
-            <button id="registerSubmit" type="button" class="tab" style="justify-self:start">작성완료</button>
+            <label for="regNo">공사번호</label><input id="regNo" type="text" readonly />
+            <label for="regName">공사명</label><input id="regName" type="text" placeholder="공사명을 입력하세요" />
+            <label for="regCompany">업체명</label><input id="regCompany" type="text" placeholder="업체명을 입력하세요" />
+            <label for="regType">공사구분</label><input id="regType" type="text" placeholder="예: 전기/토목/설비/기타" />
+            <label for="regPM">담당PM</label><input id="regPM" type="text" placeholder="담당 PM 성명" />
+            <label for="regStart">공사시작일</label><input id="regStart" type="date" />
+            <label for="regEnd">공사종료일</label><input id="regEnd" type="date" />
+            <label for="regSummary">공사개요</label><textarea id="regSummary" rows="4" placeholder="공사 범위, 위치, 주요작업 등" style="resize:vertical"></textarea>
+            <label for="regWriter">작성자</label><input id="regWriter" type="text" placeholder="작성자 성명" />
+            <div></div><button id="registerSubmit" type="button" class="tab" style="justify-self:start">작성완료</button>
           </form>
           <small>작성완료 시 구글시트(공사관리)에 즉시 반영됩니다.</small>
         </section>
 
         <section id="tab-plan" class="panel">
           <h2>계획서작성</h2>
-          <p>
-            시공계획서 &amp; 안전작업계획서 자동 작성페이지로 이동합니다 (Miso) —
-            <a href="https://edu.miso.gs/chatList/PNSlaAxMSdTgVZRx" target="_blank" rel="noopener">바로가기</a>
-          </p>
+          <p>시공계획서 &amp; 안전작업계획서 자동 작성페이지로 이동합니다 (Miso) — <a href="https://edu.miso.gs/chatList/PNSlaAxMSdTgVZRx" target="_blank" rel="noopener">바로가기</a></p>
+          <p style="margin-top:12px;color:#fbbf24">※ 현재 프로토타입이므로 수기로 복사해서 넘겨야 합니다</p>
+
+          <div id="planPicker" style="margin-top:12px;display:grid;grid-template-columns:140px 1fr;gap:8px 12px;max-width:780px">
+            <label for="planProjectSelect">업체별 공사 선택</label>
+            <select id="planProjectSelect"><option value="">업체를 먼저 선택하세요</option></select>
+            <label for="planProjectLine">아래 버튼을 눌러 각각 입력</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="planProjectLine" type="text" readonly placeholder="[공사번호_공사명_업체명_공사구분_담당PM_공사시작일_공사종료일_공사개요_작성자]" style="flex:1" />
+              <button id="planCopyBtn" type="button" class="tab" aria-label="복사">복사</button>
+            </div>
+            <!-- 좌측 라벨 폭 정렬 + 버튼 2개 나란히 -->
+            <div class="plan-aiu-row"
+                 style="display:grid; grid-template-columns:140px 1fr; gap:8px 12px; max-width:780px; margin-top:6px;">
+              <div aria-hidden="true"></div>
+              <div style="display:inline-flex; gap:6px; flex-wrap:nowrap; white-space:nowrap;">
+                <a class="tab" style="display:inline-block"
+                   href="https://aiu.gscaltex.com/chatList/MZ6dlMbMiG4DBunl" target="_blank" rel="noopener">
+                  시공계획서 작성
+                </a>
+                <a class="tab" style="display:inline-block"
+                   href="https://aiu.gscaltex.com/chatList/ngOKuZKujAsQE5QF" target="_blank" rel="noopener">
+                  안전작업계획서
+                </a>
+              </div>
+            </div>
+          </div>
         </section>
 
+        <!-- 작업위험성평가 -->
         <section id="tab-jha" class="panel">
           <h2>작업위험성평가</h2>
+          <div style="margin-bottom:12px;">
+            <p style="margin:0 0 6px;color:#cbd5e1">
+              작업위험성평가는 <b>KOSHA 가이드</b>에 따라 <b>JRA</b>(Job Risk Assessment)로 위험도를 산정하고,
+              점수에 따라 <b>JSA</b>(Job Safety Analysis) 또는 <b>PIA</b>(Pre-Inspection Analysis)로 구분해 상세 작성합니다.
+            </p>
+            <ul style="margin:0;padding-left:18px;color:#9ca3af;font-size:14px;line-height:1.4">
+              <li><b>JRA</b> → 작업·위험요인·결과·기존/추가대책을 반영해 <b>위험도 산정</b></li>
+              <li><b>점수 ≥ 7</b> → <b>JSA</b> 작성(작업 단계별 절차·보호구·통제대책 구체화)</li>
+              <li><b>점수 &lt; 7</b> → <b>PIA</b> 작성(사전 점검 위주, 최소 조치사항 점검)</li>
+              <li>한 공사에서 <b>여러 개의 JSA/PIA</b>가 나올 수 있으며, 작업별로 개수가 달라질 수 있습니다.</li>
+            </ul>
+          </div>
+
+          <div style="display:grid; gap:14px">
+            <!-- JRA -->
+            <div style="border:1px solid #2a3a54;border-radius:12px;padding:12px;background:#0e2037">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between">
+                <div style="font-weight:700">JRA 초안 작성하기</div>
+                <a class="tab" href="https://aiu.gscaltex.com/chatList/R7hthqRedMs1U3RO" target="_blank" rel="noopener">열기</a>
+              </div>
+              <p style="margin:8px 0 12px;color:#9ca3af;font-size:14px">입력값은 <b>공사 선택</b> 후 아래 한 줄 텍스트를 <b>복사</b>해서 넣으면 됩니다.</p>
+              <div id="jhaPicker" style="display:grid;grid-template-columns:140px 1fr;gap:8px 12px;max-width:780px">
+                <label for="jhaProjectSelect">업체별 공사 선택</label>
+                <select id="jhaProjectSelect"><option value="">업체를 먼저 선택하세요</option></select>
+                <label for="jhaProjectLine">복사후 AiU에 입력하세요</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input id="jhaProjectLine" type="text" readonly placeholder="[공사번호_공사명_업체명_공사구분_담당PM_공사시작일_공사종료일_공사개요_작성자]" style="flex:1"/>
+                  <button id="jhaCopyBtn" type="button" class="tab" aria-label="복사">복사</button>
+                </div>
+              </div>
+            </div>
+
+<!-- JSA -->
+<div style="border:1px solid #2a3a54;border-radius:12px;padding:12px;background:#0e2037">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between">
+    <div style="font-weight:700">JSA 초안 작성하기</div>
+    <a class="tab" href="https://aiu.gscaltex.com/chatList/j1GCNRrFu8K1GsOq" target="_blank" rel="noopener">열기</a>
+  </div>
+  <p style="margin:8px 0 0;color:#9ca3af;font-size:14px">
+    <b>대상:</b> <u>JRA 결과 중 7점 이상</u>인 항목<br/>
+    <b>입력 방법:</b> <code>공사명 / 작업명</code> 형식으로 입력<br/>
+    <b>예시:</b> <code>D-127 정기개방검사 전기공사 / 맨홀 전기 작업</code>
+  </p>
+</div>
+
+<!-- PIA -->
+<div style="border:1px solid #2a3a54;border-radius:12px;padding:12px;background:#0e2037">
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between">
+    <div style="font-weight:700">PIA 초안 작성하기</div>
+    <a class="tab" href="https://aiu.gscaltex.com/chatList/WfnNQ6ZuFnqF1Jyl" target="_blank" rel="noopener">열기</a>
+  </div>
+  <p style="margin:8px 0 0;color:#9ca3af;font-size:14px">
+    <b>대상:</b> <u>JRA 결과 중 7점 미만</u>인 항목<br/>
+    <b>입력 방법:</b> <code>공사명 / 작업명</code> 형식으로 입력<br/>
+    <b>예시:</b> <code>D-127 정기개방검사 전기공사 / 자재 반출입 작업</code>
+  </p>
+</div>
+
+          </div>
+        </section>
+
+        <section id="tab-kom" class="panel">
+          <h2>K.O.M</h2>
           <p>
-            작업위험성평가 자동 작성페이지로 이동합니다 (Miso) —
-            <a href="https://edu.miso.gs/chatList/uukcyc2WeFtK3kzm" target="_blank" rel="noopener">바로가기</a>
+            Kick Off Meeting 어시스트를 실행합니다. 
+            (<a href="https://edu.miso.gs/chatList/GW5d7eggzUiy8EQP" target="_blank" rel="noopener">회의록 작성</a>)
           </p>
+          <div style="margin-top:8px">
+            <a class="tab" href="https://edu.miso.gs/chatList/GW5d7eggzUiy8EQP" target="_blank" rel="noopener">바로가기</a>
+          </div>
         </section>
 
         <section id="tab-access" class="panel">
           <h2>출입 및 교육관리</h2>
-          <img
-            src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%B6%9C%EC%9E%85%EC%9E%90_%EA%B3%A7.JPG"
-            alt="출입자 시스템 안내 이미지(곧)" style="max-width:100%;height:auto"
-          />
+          <img src="https://raw.githubusercontent.com/kih4602/picture/main/%EC%B6%9C%EC%9E%85%EC%9E%90_%EA%B3%A7.JPG" alt="출입자 시스템 안내 이미지(곧)" style="max-width:100%;height:auto"/>
           <p>(현재 52g, GS칼텍스 DX센터 협업 구축중 / 곧 출입자 시스템 연동 예정)</p>
         </section>
 
         <section id="tab-tbm" class="panel">
           <h2>TBM</h2>
-          <p>
-            TBM자료 자동 작성페이지로 이동합니다 (Miso) —
-            <a href="https://edu.miso.gs/chatList/BD525Ionu3C4lcbX" target="_blank" rel="noopener">바로가기</a>
-          </p>
+          <p>TBM자료 자동 작성페이지로 이동합니다 (Miso) — <a href="https://edu.miso.gs/chatList/BD525Ionu3C4lcbX" target="_blank" rel="noopener">바로가기</a></p>
         </section>
 
         <section id="tab-observe" class="panel">
@@ -269,62 +329,91 @@
 
         <section id="tab-pssr" class="panel">
           <h2>가동전점검</h2>
-          <p>가동전점검 입력 페이지로 이동합니다.</p>
+          <p>
+            가동전점검 어시스트를 실행합니다. 
+            (<a href="https://edu.miso.gs/chatList/GW5d7eggzUiy8EQP" target="_blank" rel="noopener">점검결과 메모</a>)
+          </p>
+          <div style="margin-top:8px">
+            <a class="tab" href="https://edu.miso.gs/chatList/GW5d7eggzUiy8EQP" target="_blank" rel="noopener">바로가기</a>
+          </div>
         </section>
 
         <!-- 상주협력업체 모드 -->
-        <section id="tab-res-training" class="panel">
-          <h2>안전보건교육</h2>
-          <div id="resTrainingBox"></div>
-        </section>
-        <section id="tab-res-joint" class="panel">
-          <h2>합동안전점검</h2>
-          <div id="resJointBox"></div>
-        </section>
-        <section id="tab-res-patrol" class="panel">
-          <h2>작업장순회점검</h2>
-          <div id="resPatrolBox"></div>
-        </section>
+        <section id="tab-res-training" class="panel"><h2>안전보건교육</h2><div id="resTrainingBox"></div></section>
+        <section id="tab-res-joint" class="panel"><h2>합동안전점검</h2><div id="resJointBox"></div></section>
+        <section id="tab-res-patrol" class="panel"><h2>작업장순회점검</h2><div id="resPatrolBox"></div></section>
         <section id="tab-res-observe" class="panel">
           <h2>안전관찰</h2>
-          <p>아래 링크(Miso)에서 안전관찰을 입력하세요</p>
-          <p><a href="https://edu.miso.gs/chatList/ZDtEyQzprecmiOR9" target="_blank" rel="noopener">Miso 안전관찰 바로가기</a></p>
+          <p>아래 링크(AiU)에서 안전관찰을 입력하세요</p>
+          <p><a href="https://aiu.gscaltex.com/chatList/tNgmkTMtbEhyWtiv" target="_blank" rel="noopener">AiU 안전관찰 바로가기</a></p>
         </section>
 
         <!-- 긴급작업허가 모드 -->
         <section id="tab-urgent-notice" class="panel"><h2>공지사항</h2></section>
+
+        <!-- 긴급 업체정보입력(전체 입력칸) -->
         <section id="tab-urgent-company" class="panel">
           <h2>업체정보입력</h2>
-          <form id="urgentForm" style="display:grid;grid-template-columns:120px 1fr;gap:8px 12px;max-width:640px">
-            <label>공사번호</label>
-            <input id="urgentWorkNo" type="text" readonly />
-            <label>공사명</label>
-            <input id="urgentWorkName" type="text" placeholder="공사명을 입력하세요" />
-            <label>긴급공사구분</label>
-            <input id="urgentType" type="text" value="긴급" readonly />
-            <label>업체명</label>
-            <input id="urgentCompany" type="text" placeholder="업체명을 입력하세요" />
+          <form id="urgentRegisterForm" style="display:grid;grid-template-columns:140px 1fr;gap:10px 14px;max-width:780px">
+            <label>긴급공사구분</label><input id="urgentRegType" type="text" value="긴급" readonly />
+            <label for="urgentRegNo">공사번호</label><input id="urgentRegNo" type="text" readonly />
+            <label for="urgentRegName">공사명</label><input id="urgentRegName" type="text" placeholder="공사명을 입력하세요" />
+            <label for="urgentRegCompany">업체명</label><input id="urgentRegCompany" type="text" placeholder="업체명을 입력하세요" />
+            <label for="urgentRegCategory">공사구분</label><input id="urgentRegCategory" type="text" placeholder="예: 전기/토목/설비/기타" />
+            <label for="urgentRegPM">담당PM</label><input id="urgentRegPM" type="text" placeholder="담당 PM 성명" />
+            <label for="urgentRegStart">공사시작일</label><input id="urgentRegStart" type="date" />
+            <label for="urgentRegEnd">공사종료일</label><input id="urgentRegEnd" type="date" />
+            <label for="urgentRegSummary">공사개요</label><textarea id="urgentRegSummary" rows="4" placeholder="공사 범위, 위치, 주요작업 등" style="resize:vertical"></textarea>
+            <label for="urgentRegWriter">작성자</label><input id="urgentRegWriter" type="text" placeholder="작성자 성명" />
+            <div></div><button id="urgentRegisterSubmit" type="button" class="tab" style="justify-self:start">작성완료</button>
           </form>
+          <small>작성완료 시 구글시트(공사관리)에 즉시 반영됩니다.</small>
         </section>
+
+        <!-- 긴급 시공계획서(긴급 항목만 드롭/복사 + AiU 링크) -->
         <section id="tab-urgent-plan" class="panel">
-          <h2>시공계획</h2>
-          <p>
-            시공계획서 자동 작성페이지로 이동합니다 (Miso) —
-            <a href="https://edu.miso.gs/chatList/2rlfBn3V5FX6BlHj" target="_blank" rel="noopener">바로가기</a>
+          <h2>긴급시공계획서 초안작성</h2>
+          <p>아래 절차를 따라 <b>긴급 안전작업계획서</b>를 작성하세요. (업체별 <b>긴급 공사</b> 선택 → 생성된 한 줄 텍스트 복사 → AiU 페이지에 붙여넣기)</p>
+
+          <div id="urgentPlanPicker"
+               style="margin-top:12px;display:grid;grid-template-columns:140px 1fr;gap:8px 12px;max-width:780px">
+            <label for="urgentPlanProjectSelect">업체별 공사 선택</label>
+            <select id="urgentPlanProjectSelect">
+              <option value="">업체를 먼저 선택하세요</option>
+            </select>
+
+            <label for="urgentPlanProjectLine">아래 버튼을 눌러 각각 입력</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="urgentPlanProjectLine" type="text" readonly
+                     placeholder="[공사번호_공사명_업체명_공사구분_담당PM_공사시작일_공사종료일_공사개요_작성자]"
+                     style="flex:1" />
+              <button id="urgentPlanCopyBtn" type="button" class="tab" aria-label="복사">복사</button>
+            </div>
+
+            <div aria-hidden="true"></div>
+            <div style="display:inline-flex; gap:6px; flex-wrap:nowrap; white-space:nowrap;">
+              <a class="tab" style="display:inline-block"
+                 href="https://aiu.gscaltex.com/chatList/ladfRZPPV7NC7CUM" target="_blank" rel="noopener">
+                긴급 안전관리계획서 작성
+              </a>
+            </div>
+          </div>
+
+          <p style="margin-top:8px;color:#fbbf24">
+            ※ 업체별 공사선택에는 <b>공사관리 &gt; 긴급공사구분 = "긴급"</b> 인 데이터만 표시됩니다.
           </p>
         </section>
+
         <section id="tab-urgent-hazards" class="panel">
           <h2>위험요소 및 경감대책</h2>
-          <p>
-            위험요소 및 경감대책 자동 작성페이지로 이동합니다 (Miso) —
-            <a href="https://edu.miso.gs/chatList/JX2OvIuXkdtFj0nl" target="_blank" rel="noopener">바로가기</a>
-          </p>
+          <p>위험요소 및 경감대책 자동 작성페이지로 이동합니다 (Miso) — <a href="https://edu.miso.gs/chatList/JX2OvIuXkdtFj0nl" target="_blank" rel="noopener">바로가기</a></p>
         </section>
       </div>
     </section>
   </main>
 
   <footer>© The WolWor’s (월월이들) — SafeAIon</footer>
+  <div id="toastWrap" class="toast-wrap" aria-live="polite" aria-atomic="true"></div>
 
   <script>
     /* ====== 엔드포인트 ====== */
@@ -338,21 +427,30 @@
       observations:"https://api.sheety.co/e0f5b6d23f43de8c820431862120c66b/aIoT/안전관찰"
     };
 
-    /* ====== 탭 세트(한글) ====== */
+    /* ====== 탭 세트(한글) – KOM 추가 ====== */
     const TAB_SETS={
       general:[
-        {id:'tab-notice',label:'공지사항'},{id:'tab-register',label:'공사등록'},
-        {id:'tab-plan',label:'계획서작성'},{id:'tab-jha',label:'작업위험성평가'},
-        {id:'tab-access',label:'출입 및 교육관리'},{id:'tab-tbm',label:'TBM'},
-        {id:'tab-observe',label:'안전관찰'},{id:'tab-pssr',label:'가동전점검'}
+        {id:'tab-notice',label:'공지사항'},
+        {id:'tab-register',label:'공사등록'},
+        {id:'tab-plan',label:'계획서작성'},
+        {id:'tab-jha',label:'작업위험성평가'},
+        {id:'tab-kom',label:'K.O.M'},
+        {id:'tab-access',label:'출입 및 교육관리'},
+        {id:'tab-tbm',label:'TBM'},
+        {id:'tab-observe',label:'안전관찰'},
+        {id:'tab-pssr',label:'가동전점검'}
       ],
       resident:[
-        {id:'tab-res-training',label:'안전보건교육'},{id:'tab-res-joint',label:'합동안전점검'},
-        {id:'tab-res-patrol',label:'작업장순회점검'},{id:'tab-res-observe',label:'안전관찰'}
+        {id:'tab-res-training',label:'안전보건교육'},
+        {id:'tab-res-joint',label:'합동안전점검'},
+        {id:'tab-res-patrol',label:'작업장순회점검'},
+        {id:'tab-res-observe',label:'안전관찰'}
       ],
       urgent:[
-        {id:'tab-urgent-notice',label:'공지사항'},{id:'tab-urgent-company',label:'업체정보입력'},
-        {id:'tab-urgent-plan',label:'시공계획'},{id:'tab-urgent-hazards',label:'위험요소 및 경감대책'}
+        {id:'tab-urgent-notice',label:'공지사항'},
+        {id:'tab-urgent-company',label:'업체정보입력'},
+        {id:'tab-urgent-plan',label:'시공계획'},
+        {id:'tab-urgent-hazards',label:'위험요소 및 경감대책'}
       ]
     };
 
@@ -372,16 +470,33 @@
     const rule31El=document.getElementById('rule31');
     const rule33El=document.getElementById('rule33');
     const companyNoticeBox=document.getElementById('companyNoticeBox');
-    const urgentNoticePanel=document.getElementById('tab-urgent-notice');
 
     /* ====== 상태 ====== */
     let companies = [];       // [{id, name, isResident}]
     let selectedCompany=null; // {id, name, isResident}
 
+    /* ====== Toast ====== */
+    function showToast(message, type='info', ttl=2500){
+      const wrap = document.getElementById('toastWrap');
+      const el = document.createElement('div');
+      el.className = `toast ${type}`;
+      el.textContent = String(message || '');
+      wrap.appendChild(el);
+      const timer = setTimeout(() => {
+        el.style.animation = 'toast-out .16s ease forwards';
+        setTimeout(() => wrap.removeChild(el), 180);
+      }, ttl);
+      el.addEventListener('click', () => {
+        clearTimeout(timer);
+        el.style.animation = 'toast-out .12s ease forwards';
+        setTimeout(() => wrap.removeChild(el), 140);
+      });
+    }
+
+    /* ====== 초기화 ====== */
     window.addEventListener('DOMContentLoaded',init);
 
     async function init(){
-      // 원본 데이터 바로가기 링크
       document.getElementById('rawDataLink').href =
         "https://docs.google.com/spreadsheets/d/1HE5z0Dr_sIfVgKX-HgjtH3HX3GWLvCjwqZD7Qo7QVRg/edit?gid=1277410222#gid=1277410222";
 
@@ -391,32 +506,54 @@
       setMode('home');
     }
 
+    /* ====== 이벤트 ====== */
     function attachEvents(){
       homeBtn.addEventListener('click',()=>{
         companySelect.value='';selectedCompany=null;urgentPermit.checked=false;
         showUrgentControl(true);setMode('home');companyGroup.classList.remove('hidden');
       });
-      companySelect.addEventListener('change',onCompanyChange);
-      urgentPermit.addEventListener('change',onUrgentToggle);
 
-      // 공사등록 제출 버튼 위임
+      companySelect.addEventListener('change', onCompanyChange);
+      urgentPermit.addEventListener('change',  onUrgentToggle);
+
       document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'registerSubmit') {
           submitGeneralRegistrationForm().catch(console.error);
         }
+        if (e.target && e.target.id === 'urgentRegisterSubmit') {
+          submitUrgentRegistrationForm().catch(console.error);
+        }
+        if (e.target && e.target.id === 'urgentPlanCopyBtn') {
+          // handled by bindCopyButton too; keep id here for clarity
+        }
+      });
+
+      bindCopyButton('planCopyBtn', 'planProjectLine');
+      bindCopyButton('jhaCopyBtn',  'jhaProjectLine');
+      bindCopyButton('urgentPlanCopyBtn', 'urgentPlanProjectLine');
+    }
+
+    function bindCopyButton(btnId, inputId){
+      const btn = document.getElementById(btnId);
+      const input = document.getElementById(inputId);
+      if(!btn || !input) return;
+      btn.addEventListener('click', async () => {
+        const text = input.value || '';
+        try { await navigator.clipboard.writeText(text); showToast('복사되었습니다', 'success'); }
+        catch {
+          input.focus(); input.select();
+          try { const ok = document.execCommand('copy'); showToast(ok ? '복사되었습니다' : '복사 실패', ok ? 'success' : 'error'); }
+          catch { showToast('복사 실패', 'error'); }
+          finally { input.setSelectionRange(input.value.length, input.value.length); input.blur(); }
+        }
       });
     }
 
-    /* ====== 드롭다운 표시 텍스트 획득(문자열 비교용) ====== */
-    function getSelectedCompanyTextFromDropdown(){
-      try{
-        const opt = companySelect.options[companySelect.selectedIndex];
-        if(!opt) return '';
-        const txt = String(opt.text ?? '');
-        return txt.replace(/\s*\(상주\)\s*$/,'').trim(); // 라벨의 " (상주)" 제거
-      }catch{
-        return '';
-      }
+    /* ====== 드롭다운 비교용 표시 텍스트 ====== */
+    function getSelectedCompanyNameForFilter(){
+      const opt = companySelect.options[companySelect.selectedIndex];
+      if (!opt) return '';
+      return String(opt.text || '').replace(/\s*\(상주\)\s*$/,'').trim();
     }
 
     /* ====== 모드/탭 ====== */
@@ -433,6 +570,7 @@
       set.forEach(tabObj=>{
         const btn=document.createElement('button');
         btn.className='tab'; btn.type='button';
+        btn.id = 'tabbtn-'+tabObj.id;
         btn.setAttribute('aria-controls',tabObj.id);
         btn.setAttribute('aria-selected','false');
         btn.textContent=tabObj.label;
@@ -450,6 +588,10 @@
         t.setAttribute('aria-selected',String(active)); t.tabIndex=active?0:-1;
       });
       panelsEl.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===panelId));
+
+      if (panelId === 'tab-plan') ensurePlanPicker();
+      if (panelId === 'tab-jha')  ensureJhaPicker();
+      if (panelId === 'tab-urgent-plan') ensureUrgentPlanPicker();
     }
 
     /* ====== 업체 선택/긴급 ====== */
@@ -469,42 +611,38 @@
         showUrgentControl(false);
         setMode('resident');
 
-        // 상주 패널 데이터 로딩 (요청: 2025년)
         const year = 2025;
         Promise.all([
           loadResidentEducation(year, selectedCompany.name),
           loadResidentJointInspection(year, selectedCompany.name),
           loadResidentPatrolNotes(year, selectedCompany.name)
         ]).catch(console.error);
-
       }else{
         showUrgentControl(true);
         setMode('general');
 
-        // 공사업체(일반) 진입 시: 공사등록 폼/안전관찰 로딩
         prefillGeneralRegistrationForm().catch(console.error);
         loadCompanyObservations(selectedCompany.name).catch(console.error);
       }
 
-      // ▼ 드롭다운의 표시 텍스트로 비교(문자열 강제)
-      const displayName = getSelectedCompanyTextFromDropdown() || selectedCompany?.name || '';
+      const displayName = getSelectedCompanyNameForFilter() || selectedCompany?.name || '';
       if(displayName){
         loadLatestCompanyNotice(displayName)
           .catch(err=>{ console.error(err); companyNoticeBox.innerHTML='<p>공지 불러오기 실패</p>'; });
       }
+      if (document.getElementById('tab-plan')?.classList.contains('active')) ensurePlanPicker();
+      if (document.getElementById('tab-jha') ?.classList.contains('active')) ensureJhaPicker();
+      if (document.getElementById('tab-urgent-plan') ?.classList.contains('active')) ensureUrgentPlanPicker();
     }
 
     function onUrgentToggle(e){
       if(e.target.checked){
         setMode('urgent');
         companyGroup.classList.add('hidden');
-
-        // 긴급 공지 패널 안내 문구
-        urgentNoticePanel.innerHTML = `
+        document.getElementById('tab-urgent-notice').innerHTML = `
           <h2>공지사항</h2>
           <p>업체정보입력 &gt; 시공계획 &gt; 위험요소 및 경감대책 순서로 업로드 하고, 담당 PM에게 연락 바랍니다.</p>
         `;
-
         prefillUrgentForm().catch(console.error);
       }else{
         companyGroup.classList.remove('hidden');
@@ -521,7 +659,7 @@
     }
     function showUrgentControl(show){urgentGroup.classList.toggle('hidden',!show);}
 
-    /* ====== 회사 목록 (업체명 A열, 구분 B열) ====== */
+    /* ====== 회사 목록 로드 ====== */
     async function loadCompaniesFromSheet(){
       try{
         const res = await fetch(ENDPOINTS.companies);
@@ -532,17 +670,14 @@
         companies = rows.map((r, i) => {
           const name = r['업체명'] ?? r['회사명'] ?? r['name'] ?? r['Name'];
           const typeRaw = (r['구분'] ?? r['type'] ?? r['Type'] ?? '').toString().trim();
-          return {
-            id: r['id'] ?? `row-${i}`,
-            name: name ? String(name).trim() : '',
-            isResident: typeRaw === '상주협력업체'
-          };
+          return { id: r['id'] ?? `row-${i}`, name: name ? String(name).trim() : '', isResident: typeRaw === '상주협력업체' };
         }).filter(c => c.name);
         populateCompanySelect(companies);
       }catch(err){
         console.error(err);
         companies = [];
         populateCompanySelect(companies);
+        showToast('업체 목록을 불러오지 못했습니다', 'error');
       }
     }
     function populateCompanySelect(list){
@@ -556,7 +691,7 @@
       });
     }
 
-    /* ====== 메인 공지 (공지사항 시트: A=날짜, B/C 노출) ====== */
+    /* ====== 메인 공지 (최신 1건) ====== */
     async function loadHomeNoticeLatest(){
       try{
         const res = await fetch(ENDPOINTS.noticesHome);
@@ -590,7 +725,7 @@
       }
     }
 
-    /* ====== 업체별 최신 공지 (표시 텍스트 기반, 문자열 강제 비교) ====== */
+    /* ====== 업체별 최신 공지 ====== */
     async function loadLatestCompanyNotice(companyName){
       try {
         const res = await fetch(ENDPOINTS.noticesByCo);
@@ -599,45 +734,27 @@
         const data = await res.json();
         const arrKey = Object.keys(data).find(k => Array.isArray(data[k]));
         const rows = arrKey ? data[arrKey] : [];
+        if (!rows.length) { companyNoticeBox.innerHTML = '<p>공지 없음</p>'; return; }
 
-        if (!rows.length) {
-          companyNoticeBox.innerHTML = '<p>공지 없음</p>';
-          return;
-        }
-
-        // ── 로컬 유틸 ──
         const toText = (v) => String(v ?? '').trim();
         const normalize = (str) => toText(str).replace(/\s+/g, '');
         const parseKDotDateLocal = (str) => {
-          const s = toText(str);
-          const parts = s.split('.');
+          const s = toText(str); const parts = s.split('.');
           if (parts.length < 3) return null;
           const [yy, mm, dd] = parts.map(x => parseInt(toText(x), 10));
           const d = new Date(yy, (mm||1)-1, dd||1);
           return isNaN(d) ? null : d;
         };
-        const formatKDotDateLocal = (d) => {
-          if (!(d instanceof Date) || isNaN(d)) return '';
-          const yyyy = d.getFullYear();
-          const mm = String(d.getMonth() + 1).padStart(2,'0');
-          const dd = String(d.getDate()).padStart(2,'0');
-          return `${yyyy}.${mm}.${dd}`;
-        };
+        const formatKDotDateLocal = (d) => (!(d instanceof Date) || isNaN(d)) ? '' : `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
 
         const normTarget = normalize(companyName);
         const matched = rows.filter(row => normalize(row['업체명']) === normTarget);
-
-        if (!matched.length) {
-          companyNoticeBox.innerHTML = '<p>해당 업체 공지가 없습니다.</p>';
-          return;
-        }
+        if (!matched.length) { companyNoticeBox.innerHTML = '<p>해당 업체 공지가 없습니다.</p>'; return; }
 
         matched.sort((a, b) => {
           const da = parseKDotDateLocal(a['날짜']);
           const db = parseKDotDateLocal(b['날짜']);
-          const ta = da ? da.getTime() : -Infinity;
-          const tb = db ? db.getTime() : -Infinity;
-          return tb - ta;
+          return (db?db.getTime():-Infinity) - (da?da.getTime():-Infinity);
         });
 
         const latest = matched[0];
@@ -645,22 +762,20 @@
         const content = toText(latest['내용']);
         const dateStr = formatKDotDateLocal(parseKDotDateLocal(latest['날짜']));
 
-        const linkHtml = `<a href="${ENDPOINTS.noticesByCo}" target="_blank" rel="noopener">원본(JSON) 보기</a>`;
         companyNoticeBox.innerHTML = `
           <article>
             <h3 style="margin:0 0 6px">${escapeHtml(title)}</h3>
             ${dateStr ? `<small style="color:#9ca3af">날짜: ${dateStr}</small>` : ''}
             ${content ? `<p style="margin:8px 0 0;color:#cbd5e1">${escapeHtml(content)}</p>` : ''}
-            <div style="margin-top:8px">${linkHtml}</div>
-          </article>
-        `;
+            <div style="margin-top:8px"><a href="${ENDPOINTS.noticesByCo}" target="_blank" rel="noopener">원본(JSON) 보기</a></div>
+          </article>`;
       } catch (err) {
         console.error(err);
         companyNoticeBox.innerHTML = '<p>공지 불러오기 실패</p>';
       }
     }
 
-    /* ====== 체감온도(금일 전시간 테이블) ====== */
+    /* ====== 체감온도(금일 전시간) ====== */
     async function loadApparentTemperature(){
       try{
         const res = await fetch(ENDPOINTS.apparent);
@@ -671,7 +786,6 @@
         if(!rows.length){ tempTableBox.textContent='데이터 없음'; return; }
 
         const todayStr = todayKDotString();
-
         const sample = rows[0];
         const dateKey = detectKey(sample, ['날짜','일자','작성일','date','Date','작성일자']);
         const timeKey = detectKey(sample, ['시간','time','Time']);
@@ -679,59 +793,39 @@
         const humiKey = detectKey(sample, ['습도','humidity','Humi','hum','D']);
         const appKey  = detectKey(sample, ['체감온도','apparent','heatIndex','HI','E']);
 
-        const todayRows = rows.filter(r=>{
-          const d = r[dateKey];
-          return d && equalKDotDate(d, todayStr);
-        });
+        const todayRows = rows.filter(r=> r[dateKey] && equalKDotDate(r[dateKey], todayStr));
         if(!todayRows.length){ tempTableBox.textContent='금일 데이터 없음'; return; }
 
-        todayRows.sort((a,b)=>{
-          const ta = parseTimeToMinutes(a[timeKey]);
-          const tb = parseTimeToMinutes(b[timeKey]);
-          return ta - tb;
-        });
+        todayRows.sort((a,b)=> parseTimeToMinutes(a[timeKey]) - parseTimeToMinutes(b[timeKey]));
 
         const table = document.createElement('table');
         table.className='temp-table';
-        table.innerHTML = `
-          <thead>
-            <tr><th>시간</th><th>온도(℃)</th><th>습도(%)</th><th>체감온도(℃)</th></tr>
-          </thead>
-          <tbody></tbody>
-        `;
+        table.innerHTML = `<thead><tr><th>시간</th><th>온도(℃)</th><th>습도(%)</th><th>체감온도(℃)</th></tr></thead><tbody></tbody>`;
         const tbody = table.querySelector('tbody');
 
         todayRows.forEach(r=>{
           const t  = safeNum(r[tempKey]);
           const h  = safeNum(r[humiKey]);
           const ap = safeNum(r[appKey]);
-          const apClass = (ap!==null && ap>=33) ? 'apparent-bad'
-                        : (ap!==null && ap>=31) ? 'apparent-warn' : '';
+          const apClass = (ap!==null && ap>=33) ? 'apparent-bad' : (ap!==null && ap>=31) ? 'apparent-warn' : '';
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${escapeHtml(String(r[timeKey] ?? ''))}</td>
             <td>${t!==null ? t : ''}</td>
             <td>${h!==null ? h : ''}</td>
-            <td class="${apClass}">${ap!==null ? ap : ''}</td>
-          `;
+            <td class="${apClass}">${ap!==null ? ap : ''}</td>`;
           tbody.appendChild(tr);
         });
 
         tempTableBox.innerHTML=''; tempTableBox.appendChild(table);
 
-        const maxAp = todayRows.reduce((m,r)=>{
-          const v = safeNum(r[appKey]); return v!==null ? Math.max(m,v) : m;
-        }, -Infinity);
+        const maxAp = todayRows.reduce((m,r)=>{ const v = safeNum(r[appKey]); return v!==null ? Math.max(m,v) : m; }, -Infinity);
         rule31El.style.color = (maxAp>=31) ? 'var(--warn)' : 'var(--sub)';
         rule33El.style.color = (maxAp>=33) ? 'var(--bad)'  : 'var(--sub)';
-
-      }catch(e){
-        console.error(e);
-        tempTableBox.textContent='체감온도 불러오기 실패';
-      }
+      }catch(e){ console.error(e); tempTableBox.textContent='체감온도 불러오기 실패'; }
     }
 
-    /* ====== 상주협력업체: 교육(12개월) ====== */
+    /* ====== 상주협력업체: 교육/합동/순회 ====== */
     function detectKey(obj, candidates){ for(const k of candidates){ if(k in obj) return k; } return candidates[0]; }
     function kdotYear(d){ const m=String(d).match(/^\s*(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\s*$/); return m? +m[1] : null; }
 
@@ -781,7 +875,6 @@
       box.innerHTML = ''; box.appendChild(ul);
     }
 
-    /* ====== 상주협력업체: 합동안전점검(4분기) ====== */
     async function loadResidentJointInspection(year, companyName){
       const box = document.getElementById('resJointBox');
       box.innerHTML = '로딩 중…';
@@ -829,7 +922,6 @@
       box.innerHTML = ''; box.appendChild(ul);
     }
 
-    /* ====== 상주협력업체: 작업장순회점검(이번 주차 특이사항) ====== */
     async function loadResidentPatrolNotes(year, companyName){
       const box = document.getElementById('resPatrolBox');
       box.innerHTML = '로딩 중…';
@@ -846,11 +938,11 @@
       const noteKey    = detectKey(sample, ['특이사항','F','비고','메모','note','Note']);
       const dateKey    = detectKey(sample, ['날짜','일자','작성일','date','Date','작성일자']);
 
-      const thisYear = year;
-      const thisWeek = (()=>{ // Asia/Seoul 기준 대략적 주차
+      const thisYear = 2025;
+      const thisWeek = (()=>{
         const now = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
         const jan1 = new Date(now.getFullYear(),0,1);
-        const day = (jan1.getDay()+6)%7; // Mon=0
+        const day = (jan1.getDay()+6)%7;
         const diff = (now - jan1 + (day*24*60*60*1000));
         return Math.ceil(diff / (7*24*60*60*1000));
       })();
@@ -866,41 +958,11 @@
       });
 
       if(!filtered.length){ box.textContent='이번 주차 특이사항 없음'; return; }
-
       const note = (filtered[0][noteKey] ?? '').toString().trim();
       box.textContent = note ? note : '이번 주차 특이사항 없음';
     }
 
-    /* ====== 긴급: 업체정보입력 폼 자동 채움 ====== */
-    async function prefillUrgentForm(){
-      const year = 2025;
-      const noInput = document.getElementById('urgentWorkNo');
-      const typeInput = document.getElementById('urgentType');
-      const compInput = document.getElementById('urgentCompany');
-
-      typeInput.value = '긴급';
-      compInput.value = selectedCompany?.name || '';
-
-      let nextNo = `${year}-001`;
-      try{
-        const r = await fetch(ENDPOINTS.projects);
-        if(r.ok){
-          const j = await r.json();
-          const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
-          const rows = arrKey ? j[arrKey] : [];
-          const nums = rows.map(x => String(x['공사번호'] ?? x['번호'] ?? '')).filter(s => new RegExp(`^${year}-\\d{3}$`).test(s));
-          if(nums.length){
-            nums.sort();
-            const last = nums[nums.length-1];
-            const n = parseInt(last.split('-')[1],10)+1;
-            nextNo = `${year}-${String(n).padStart(3,'0')}`;
-          }
-        }
-      }catch(e){ console.error(e); }
-      noInput.value = nextNo;
-    }
-
-    /* ====== 공사등록(일반): 다음 번호/기본값/제출 ====== */
+    /* ====== 번호 채번 공통 ====== */
     async function computeNextProjectNo(year = 2025){
       let nextNo = `${year}-001`;
       try{
@@ -923,26 +985,21 @@
       return nextNo;
     }
 
+    /* ====== 일반 공사등록: 프리필 & 저장 ====== */
     async function prefillGeneralRegistrationForm(){
       const year = 2025;
       const el = (id) => document.getElementById(id);
-      if(!el('regNo')) return; // 탭 미생성시 스킵
-
-      const nextNo = await computeNextProjectNo(year);
-      el('regNo').value = nextNo;
-
-      // 공사명은 빈칸(힌트만 보이도록)
-      el('regName').value = '';
-
-      // 업체명은 디폴트로 선택업체 유지
+      if(!el('regNo')) return;
+      el('regName').value = ''; // 빈칸 디폴트(요청사항)
       el('regCompany').value = selectedCompany?.name || '';
-
       el('regType').value = '';
       el('regPM').value = '';
       el('regStart').value = '';
       el('regEnd').value = '';
       el('regSummary').value = '';
       el('regWriter').value = '';
+      const nextNo = await computeNextProjectNo(year);
+      el('regNo').value = nextNo;
     }
 
     async function submitGeneralRegistrationForm(){
@@ -952,7 +1009,7 @@
         공사명: el('regName')?.value?.trim(),
         업체명: el('regCompany')?.value?.trim(),
         공사구분: el('regType')?.value?.trim(),
-        담당PM: el('regPM')?.value?.trim(),            // 내부 표준 키는 '담당PM'
+        담당PM: el('regPM')?.value?.trim(), // ← F열 반영
         공사시작일: el('regStart')?.value || '',
         공사종료일: el('regEnd')?.value || '',
         공사개요: el('regSummary')?.value?.trim(),
@@ -960,54 +1017,87 @@
         작성일시: new Date().toISOString()
       };
 
-      // 필수 체크
       for(const k of ['공사번호','공사명','업체명']){
-        if(!payload[k]){ alert(`${k}을(를) 입력하세요.`); return; }
-      }
-
-      // 시트의 실제 컬럼명 검사 → '담당PM' 매핑
-      const detectProjectsColumns = async () => {
-        try{
-          const r = await fetch(ENDPOINTS.projects);
-          if(!r.ok) return [];
-          const j = await r.json();
-          const arrKey = Object.keys(j).find(k=>Array.isArray(j[k]));
-          const rows = arrKey ? j[arrKey] : [];
-          const sample = rows[0] || {};
-          return Object.keys(sample);
-        }catch{ return []; }
-      };
-
-      const cols = await detectProjectsColumns();
-      const pmCandidates = ['담당PM','담당 PM','PM','담당자'];
-      const pmCol = pmCandidates.find(k => cols.includes(k)) || '담당PM';
-
-      // 실제 전송 바디 구성(필요 시 '담당 PM' 등으로 교체)
-      const out = { ...payload };
-      if(pmCol !== '담당PM'){
-        out[pmCol] = out['담당PM'];
-        delete out['담당PM'];
+        if(!payload[k]){ showToast(`${k}을(를) 입력하세요.`, 'warn'); return; }
       }
 
       try{
         const res = await fetch(ENDPOINTS.projects, {
           method: 'POST',
           headers: { 'Content-Type':'application/json' },
-          body: JSON.stringify({ "공사관리": out })
+          body: JSON.stringify({ "공사관리": payload })
         });
         if(!res.ok){
           const t = await res.text();
           throw new Error('공사등록 실패: ' + t);
         }
-        alert('공사등록이 완료되었습니다.');
+        showToast('공사등록이 완료되었습니다.', 'success');
         prefillGeneralRegistrationForm().catch(console.error);
       }catch(err){
         console.error(err);
-        alert('저장 중 오류가 발생했습니다.');
+        showToast('저장 중 오류가 발생했습니다.', 'error');
       }
     }
 
-    /* ====== 안전관찰(공사업체): 회사명 동일 전체 표시 ====== */
+    /* ====== 긴급: 프리필 & 저장 ====== */
+    async function prefillUrgentForm(){
+      const year = 2025;
+      const el = (id) => document.getElementById(id);
+      if(!el('urgentRegNo')) return;
+
+      el('urgentRegType').value = '긴급';
+      el('urgentRegCompany').value = selectedCompany?.name || '';
+      el('urgentRegName').value = '';
+      el('urgentRegCategory').value = '';
+      el('urgentRegPM').value = '';
+      el('urgentRegStart').value = '';
+      el('urgentRegEnd').value = '';
+      el('urgentRegSummary').value = '';
+      el('urgentRegWriter').value = '';
+
+      const nextNo = await computeNextProjectNo(year);
+      el('urgentRegNo').value = nextNo;
+    }
+
+    async function submitUrgentRegistrationForm(){
+      const el = (id) => document.getElementById(id);
+      const payload = {
+        공사번호: el('urgentRegNo')?.value?.trim(),
+        공사명: el('urgentRegName')?.value?.trim(),
+        긴급공사구분: '긴급',
+        업체명: el('urgentRegCompany')?.value?.trim(),
+        공사구분: el('urgentRegCategory')?.value?.trim(),
+        담당PM: el('urgentRegPM')?.value?.trim(),
+        공사시작일: el('urgentRegStart')?.value || '',
+        공사종료일: el('urgentRegEnd')?.value || '',
+        공사개요: el('urgentRegSummary')?.value?.trim(),
+        작성자: el('urgentRegWriter')?.value?.trim(),
+        작성일시: new Date().toISOString()
+      };
+
+      for(const k of ['공사번호','공사명','업체명']){
+        if(!payload[k]){ showToast(`${k}을(를) 입력하세요.`, 'warn'); return; }
+      }
+
+      try{
+        const res = await fetch(ENDPOINTS.projects, {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify({ "공사관리": payload })
+        });
+        if(!res.ok){
+          const t = await res.text();
+          throw new Error('긴급 공사등록 실패: ' + t);
+        }
+        showToast('긴급 공사등록이 완료되었습니다.', 'success');
+        prefillUrgentForm().catch(console.error);
+      }catch(err){
+        console.error(err);
+        showToast('저장 중 오류가 발생했습니다.', 'error');
+      }
+    }
+
+    /* ====== 안전관찰(공사업체) ====== */
     async function loadCompanyObservations(companyName){
       const box = document.getElementById('observeBox');
       if(!box){ return; }
@@ -1027,9 +1117,7 @@
         const matched = rows.filter(r => String(r[companyKey] ?? '').trim() === String(companyName).trim());
         if(!matched.length){ box.textContent='해당 업체의 안전관찰이 없습니다.'; return; }
 
-        const cols = Array.from(
-          matched.reduce((set, r)=>{ Object.keys(r).forEach(k=>set.add(k)); return set; }, new Set())
-        ).filter(k => k !== 'id');
+        const cols = Array.from(matched.reduce((set, r)=>{ Object.keys(r).forEach(k=>set.add(k)); return set; }, new Set())).filter(k => k !== 'id');
 
         const table = document.createElement('table');
         table.className = 'temp-table';
@@ -1051,63 +1139,129 @@
       }
     }
 
+    /* ====== 계획서/작위평: 공사 선택 + 한줄 ====== */
+    function makeOneLineAJ(row){
+      const keys = ['공사번호','공사명','업체명','공사구분','담당PM','공사시작일','공사종료일','공사개요','작성자'];
+      const values = keys.map(k => {
+        const v = row[k];
+        return (v == null) ? '' : String(v).replace(/\r?\n/g,' ').trim();
+      });
+      return values.join('_');
+    }
+    function detectCompanyKeyInProjects(sample){
+      const candidates = ['업체명','회사명','company','Company','업체'];
+      for (const k of candidates) if (k in sample) return k;
+      return '업체명';
+    }
+    function getSelectedCompanyNameForFilterStrict(){ return getSelectedCompanyNameForFilter(); }
+
+    async function loadProjectPicker(companyName, selectId, lineId, opts={}){
+      const select = document.getElementById(selectId);
+      const line   = document.getElementById(lineId);
+      if (!select || !line) return;
+
+      select.innerHTML = ''; line.value = '';
+      if (!companyName) {
+        const op = document.createElement('option');
+        op.value = ''; op.textContent = '업체를 먼저 선택하세요';
+        select.appendChild(op); return;
+      }
+
+      try{
+        const res = await fetch(ENDPOINTS.projects);
+        if (!res.ok) throw new Error('공사관리 API 호출 실패');
+        const data = await res.json();
+        const arrKey = Object.keys(data).find(k => Array.isArray(data[k]));
+        const rows = arrKey ? data[arrKey] : [];
+        if (!rows.length){
+          const op = document.createElement('option'); op.value=''; op.textContent='데이터 없음';
+          select.appendChild(op); return;
+        }
+
+        const sample = rows[0];
+        const companyKey = detectCompanyKeyInProjects(sample);
+        const urgentKey  = ['긴급공사구분','긴급','emergency','Emergency'].find(k => k in sample) || '긴급공사구분';
+
+        const toText = v => String(v ?? '').trim();
+        const normalize = s => toText(s).replace(/\s+/g,'');
+
+        const targetNorm = normalize(companyName);
+        let matched = rows.filter(r => normalize(r[companyKey]) === targetNorm);
+
+        if (opts.emergencyOnly) {
+          matched = matched.filter(r => toText(r[urgentKey]) === '긴급');
+        }
+
+        if (!matched.length){
+          const op = document.createElement('option'); op.value=''; op.textContent='해당 조건의 공사 항목 없음';
+          select.appendChild(op); return;
+        }
+
+        const placeholder = document.createElement('option');
+        placeholder.value=''; placeholder.textContent='공사를 선택하세요';
+        select.appendChild(placeholder);
+
+        select.onchange = null;
+        select._rows = matched;
+
+        matched.forEach((row, idx) => {
+          const no  = toText(row['공사번호'] ?? row['번호']);
+          const nm  = toText(row['공사명']);
+          const op  = document.createElement('option');
+          op.value  = String(idx);
+          op.textContent = no ? `[${no}] ${nm}` : nm || '(제목 없음)';
+          select.appendChild(op);
+        });
+
+        select.onchange = () => {
+          const i = parseInt(select.value, 10);
+          if (isNaN(i)) { line.value=''; return; }
+          const row = select._rows[i];
+          line.value = makeOneLineAJ(row);
+        };
+      }catch(err){
+        console.error(err);
+        const op = document.createElement('option'); op.value=''; op.textContent='로드 실패';
+        select.appendChild(op);
+        showToast('공사 목록 로드 실패', 'error');
+      }
+    }
+    function ensurePlanPicker(){
+      const name = getSelectedCompanyNameForFilterStrict() || (selectedCompany?.name || '');
+      loadProjectPicker(name, 'planProjectSelect', 'planProjectLine');
+    }
+    function ensureJhaPicker(){
+      const name = getSelectedCompanyNameForFilterStrict() || (selectedCompany?.name || '');
+      loadProjectPicker(name, 'jhaProjectSelect', 'jhaProjectLine');
+    }
+    function ensureUrgentPlanPicker(){
+      const name = getSelectedCompanyNameForFilterStrict() || (selectedCompany?.name || '');
+      loadProjectPicker(name, 'urgentPlanProjectSelect', 'urgentPlanProjectLine', { emergencyOnly: true });
+    }
+
     /* ====== 날짜/텍스트 유틸 ====== */
     function parseKDotDate(input){
       if(!input) return null;
       const m = String(input).match(/^\s*(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\s*$/);
-      if(m){
-        const y = +m[1], mon = +m[2], d = +m[3];
-        const dt = new Date(y, mon-1, d);
-        return isNaN(dt) ? null : dt;
-      }
-      const dt2 = new Date(input);
-      return isNaN(dt2) ? null : dt2;
+      if(m){ const y = +m[1], mon = +m[2], d = +m[3]; const dt = new Date(y, mon-1, d); return isNaN(dt) ? null : dt; }
+      const dt2 = new Date(input); return isNaN(dt2) ? null : dt2;
     }
-    function formatKDotDate(d){
-      if(!(d instanceof Date) || isNaN(d)) return '';
-      const y = d.getFullYear(), m = d.getMonth()+1, day = d.getDate();
-      return `${y}. ${m}. ${day}`;
-    }
+    function formatKDotDate(d){ if(!(d instanceof Date) || isNaN(d)) return ''; const y=d.getFullYear(), m=d.getMonth()+1, day=d.getDate(); return `${y}. ${m}. ${day}`; }
     function todayKDotString(){
-      try{
-        const d = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
-        return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
-      }catch{
-        const d = new Date(); return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`;
-      }
+      try{ const d = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'})); return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`; }
+      catch{ const d=new Date(); return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}`; }
     }
-    function equalKDotDate(a, kdotStr){
-      const da = formatKDotDate(parseKDotDate(a)); return da === kdotStr;
-    }
-    function parseTimeToMinutes(s){
-      if(!s) return Number.MAX_SAFE_INTEGER;
-      const m = String(s).match(/(\d{1,2}):(\d{2})/);
-      if(!m) return Number.MAX_SAFE_INTEGER;
-      return (+m[1])*60 + (+m[2]);
-    }
-    function getDateField(row){
-      const keys = ['날짜','일자','작성일','date','Date','작성일자'];
-      for(const k of keys){ if(row[k]) return row[k]; }
-      return null;
-    }
-    function getPreferred(obj, prefList){
-      for(const k of prefList){ if(k in obj && obj[k]!=null && obj[k]!== '') return obj[k]; }
-      return null;
-    }
+    function equalKDotDate(a, kdotStr){ const da = formatKDotDate(parseKDotDate(a)); return da === kdotStr; }
+    function parseTimeToMinutes(s){ if(!s) return Number.MAX_SAFE_INTEGER; const m=String(s).match(/(\d{1,2}):(\d{2})/); if(!m) return Number.MAX_SAFE_INTEGER; return (+m[1])*60 + (+m[2]); }
+    function getDateField(row){ const keys=['날짜','일자','작성일','date','Date','작성일자']; for(const k of keys){ if(row[k]) return row[k]; } return null; }
+    function getPreferred(obj, prefList){ for(const k of prefList){ if(k in obj && obj[k]!=null && obj[k]!== '') return obj[k]; } return null; }
     function getNthNonMeta(obj, n){
       const dateKey = Object.keys(obj).find(k=>/날짜|date/i.test(k));
       const keys = Object.keys(obj).filter(k=>k!=='id' && k!==dateKey);
       return obj[keys[n]] ?? null;
     }
-    function safeNum(v){
-      if(v==null) return null;
-      const n = parseFloat(String(v).replace(/[^\d.]/g,'')); return isFinite(n) ? Math.round(n) : null;
-    }
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, m => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-      }[m]));
-    }
+    function safeNum(v){ if(v==null) return null; const n=parseFloat(String(v).replace(/[^\d.]/g,'')); return isFinite(n) ? Math.round(n) : null; }
+    function escapeHtml(str){ return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
   </script>
 </body>
 </html>
